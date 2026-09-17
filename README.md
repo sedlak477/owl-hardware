@@ -15,7 +15,7 @@ so devices mounted on top can be rotated continuously while staying connected to
 ![Hardware architecture](docs/OWL%20HW%20arch.drawio.png)
 
 - **Stator PCB**: Sits in the stationary base. Provides the USB-C power input with a USB PD trigger (CH224K) and the USB data port to the host.
-- **Rotor PCB** (controller): Rotates with the platform. Contains the RP2354B controller, the DRV8311 BLDC driver, 5 V and 3.3 V regulators, a USB hub with a passthrough port, an RM2 radio module, and an I²C/UART port.
+- **Rotor PCB** (controller): Rotates with the platform. Contains the RP2354B controller, the DRV8311 BLDC driver, 5 V and 3.3 V regulators, a USB hub with a passthrough port, and an I²C/UART port.
 - **Magnetic sensor PCB**: Measures the rotor angle for motor control using an MA600A magnetic angle sensor.
 
 ## Repository structure
