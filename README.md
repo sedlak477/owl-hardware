@@ -2,7 +2,9 @@
 
 Hardware design files for the OWL measurement tool.
 
-![Full 3D render](docs/Full%203D%20render.png)
+<p align="center">
+  <img src="docs/Full%20exploded%203D%20render.png" alt="Exploded 3D render" width="50%">
+</p>
 
 The OWL is a rotating platform driven by a BLDC motor under field-oriented control.
 Power and USB data are passed from the stationary base to the rotating part through a slip ring,
@@ -15,8 +17,6 @@ so devices mounted on top can be rotated continuously while staying connected to
 - **Stator PCB**: Sits in the stationary base. Provides the USB-C power input with a USB PD trigger (CH224K) and the USB data port to the host.
 - **Rotor PCB** (controller): Rotates with the platform. Contains the RP2354B controller, the DRV8311 BLDC driver, 5 V and 3.3 V regulators, a USB hub with a passthrough port, an RM2 radio module, and an I²C/UART port.
 - **Magnetic sensor PCB**: Measures the rotor angle for motor control using an MA600A magnetic angle sensor.
-
-![Exploded 3D render](docs/Full%20exploded%203D%20render.png)
 
 ## Repository structure
 
