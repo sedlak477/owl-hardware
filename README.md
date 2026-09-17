@@ -43,16 +43,13 @@ git clone git@github.com:sedlak477/owl-hardware.git
 
 Fabrication outputs are generated with the [Fabrication Toolkit](https://github.com/bennymeg/Fabrication-Toolkit) KiCad plugin.
 
-## Related repositories
+## Related resources
 
 [owl-firmware](https://github.com/sedlak477/owl-firmware): The firmware for the OWL platform.  
 [owl-ranger](https://github.com/sedlak477/owl-ranger): A script for stepping through some orientations and recording measurements.  
-[pyowl](https://github.com/sedlak477/pyowl): A python library for interacting with the OWL.
+[pyowl](https://github.com/sedlak477/pyowl): A python library for interacting with the OWL.  
+[Dataset](https://doi.org/10.3217/kh254-z8374): Orientation-diverse BLE Channel Sounding and UWB ranging measurements recorded with the OWL.
 
 ## License
 
 MIT, see [LICENSE](LICENSE).
-
-## AI Disclosure
-
-Large parts of the project were created with the help of AI tooling.
