@@ -3,7 +3,7 @@
 Hardware design files for the OWL measurement tool.
 
 <p align="center">
-  <img src="docs/Full%20exploded%203D%20render.png" alt="Exploded 3D render" width="50%">
+  <img src="docs/Full%20exploded%203D%20render.png" alt="Exploded 3D render" width="75%">
 </p>
 
 The OWL is a rotating platform driven by a BLDC motor under field-oriented control.
