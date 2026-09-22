@@ -72,7 +72,7 @@
 			(layer "B.SilkS"
 				(type "Bottom Silk Screen")
 			)
-			(copper_finish "None")
+			(copper_finish "ENIG")
 			(dielectric_constraints no)
 		)
 		(pad_to_mask_clearance 0)
@@ -185,19 +185,6 @@
 				)
 			)
 		)
-		(property "MF" "Molex"
-			(at 0 0 120)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "7c6a78e8-5c6e-481f-a786-15b1ee024ada")
-			(effects
-				(font
-					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Description_1" "Conn Wire to Board HDR 6 POS 1.2mm Solder ST Top Entry SMD Pico-EZmate™ T/R"
 			(at 0 0 120)
 			(unlocked yes)
@@ -276,12 +263,12 @@
 				)
 			)
 		)
-		(property "MP" "781715006"
-			(at 0 0 120)
+		(property "Manufacturer" "Molex"
+			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "9b6c582c-558f-429e-bb42-3a5595db70aa")
+			(uuid "ee4c496f-cc0c-47fd-8b3e-11cacb79b37e")
 			(effects
 				(font
 					(size 1 1)
@@ -289,12 +276,12 @@
 				)
 			)
 		)
-		(property "MFR_NAME" "Molex Connector Corporation"
-			(at 0 0 120)
+		(property "MPN" "781715006"
+			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "e2d03efa-db1c-4bf0-8b19-9aa5ae188131")
+			(uuid "f0638f5b-9eaf-4546-8c8a-547be089fc76")
 			(effects
 				(font
 					(size 1 1)
@@ -302,12 +289,12 @@
 				)
 			)
 		)
-		(property "MANUFACTURER_PART_NUMBER" "781715006"
-			(at 0 0 120)
+		(property "LCSC" "C107412"
+			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "7cefa962-9603-4fa5-9f34-acffad75818c")
+			(uuid "c603309e-408d-4c64-8655-392e62607b7b")
 			(effects
 				(font
 					(size 1 1)
@@ -572,7 +559,7 @@
 		(path "/84dd3b4c-e9ee-428f-b347-c83df667e413")
 		(sheetname "/")
 		(sheetfile "Sensor - MA600A.kicad_sch")
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
 			(end 0 0.95)
@@ -667,6 +654,45 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "Manufacturer" "Yageo"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "e37ca34f-36ed-49d8-91dc-9c7242c6ddfd")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CC0603KRX7R9BB104"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "6436d476-cd39-4a59-b1d8-a39ba6296863")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C14663"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "F.Fab")
+			(hide yes)
+			(uuid "d6b27f12-03c6-4a65-a38e-46b3527bec41")
+			(effects
+				(font
+					(size 1 1)
 					(thickness 0.15)
 				)
 			)
@@ -878,7 +904,7 @@
 		(path "/ddabf40c-4250-4849-adac-10b57d29cdba")
 		(sheetname "/")
 		(sheetfile "Sensor - MA600A.kicad_sch")
-		(attr exclude_from_pos_files)
+		(attr exclude_from_pos_files exclude_from_bom)
 		(fp_circle
 			(center 0 0)
 			(end 0 0.95)
@@ -977,6 +1003,45 @@
 					(thickness 0.15)
 				)
 				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "Monolithic Power Systems"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "afcb0ff7-3213-4abb-b743-575401f2e067")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "MA600AGQE-0000-Z"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "2a3b9a13-714b-4aff-9f34-e60624738e6e")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C49240579"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "ad44efd4-f95b-41d0-8bea-b7d93417b867")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
 			)
 		)
 		(property ki_fp_filters "QFN*1EP*3x3mm*P0.5mm*")
@@ -1566,6 +1631,45 @@
 					(thickness 0.15)
 				)
 				(justify mirror)
+			)
+		)
+		(property "Manufacturer" "Samsung Electro-Mechanics"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "229d4e07-b022-4b70-8736-8ed248402967")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "MPN" "CL10A105KB8NNNC"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "0cbc53c1-178d-41f4-a3ce-184186da8e84")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
+			)
+		)
+		(property "LCSC" "C15849"
+			(at 0 0 0)
+			(unlocked yes)
+			(layer "B.Fab")
+			(hide yes)
+			(uuid "5932948f-2a5f-4460-b568-68e4c9c53cbc")
+			(effects
+				(font
+					(size 1 1)
+					(thickness 0.15)
+				)
 			)
 		)
 		(property ki_fp_filters "C_*")
