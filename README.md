@@ -57,4 +57,7 @@ Fabrication outputs are generated with the [Fabrication Toolkit](https://github.
 
 ## License
 
-MIT, see [LICENSE](LICENSE).
+Copyright 2026 Michael Sedlak.
+
+This hardware is licensed under the CERN Open Hardware Licence Version 2 - Permissive (CERN-OHL-P-2.0), see [LICENSE](LICENSE).
+It is distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY, INCLUDING OF MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A PARTICULAR PURPOSE.
