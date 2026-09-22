@@ -29,7 +29,7 @@
 10. Cut the cables to size (leave some slack to allow for some mistakes when crimping), strip the ends, and crimp on the JST crimps.
 11. Insert the crimps into the connector housing, remember the order (or better, take a picture). The order does not matter, but it just has to match the order on the other side. I recommend ordering them so the cables can lie pretty coming out of the connector. (Picture for color order)
 12. Insert the connector
-13. Slide two large spacers onto each M5 screw, carefully bend the cables to the side, and slide on the tripod connector.
+13. Slide two big spacers onto each M5 screw, carefully bend the cables to the side, and slide on the tripod adapter.
 14. Screw the M5 nuts onto the ends of the M5 screws. Depending on 3D printing tolerences, an allen key should just fit beside the motor to turn the screw. After a few rotations, the nut will be held in place by the tripod adapter and you can tighten it all the way.
 15. The stator assembly is now finished!
 16. Thread the slip ring and motor cables though the center hole of the controller PCB and place it on top of the motor.
@@ -38,7 +38,7 @@
 19. Plug in the slip ring connector and the motor connector.
 20. !!!!! Make sure the slip ring cables are bent to the side and lay flat against the PCB, so the sensor can later be mounted on top.
 21. Plug the Pico-EZmate cable into the sensor PCB. Lay the sensor flat on the table align the connector from the top and just press down, the connector should click into place very easily.
-22. Thread the M1.6x10 screws through the payload connector, slide on the sensor PCB (the sensor IC facing *away* from the payload connector), and slide on the spacers. The fit on the spaces is tight, so I recommend screwing into them and letting 2mm stick out for alignment.
+22. Thread the M1.6x10 screws through the payload connector, slide on the sensor PCB (the sensor IC facing *away* from the payload connector), and slide on the board spacers. The fit on the spacers is tight, so I recommend screwing into them and letting 2mm stick out for alignment.
 23. Align the controller PCB with the motor's mounting holes, add the payload connector + sensor assembly on top, and screw the three M1.6 screws down into the motor.
 24. Plug the other end of the Pico-EZmate cable into the controller PCB.
 
@@ -46,8 +46,12 @@
 
 The stator uses a CH224K USB PD trigger to ask the power supply for the motor voltage.
 Which voltage it requests is set by the solder jumpers JP1 (CFG1), JP2 (CFG2) and JP3 (CFG3) on the stator PCB.
-As manufactured, JP1 and JP2 are open and JP3 is bridged, which is CFG1 low, CFG2 low, CFG3 high, so the stator requests 12V.
-Any USB-C PD supply that offers that voltage will do.
+As manufactured, the stator requests 9V.
+Any USB-C PD supply that offers 9V will do.
+
+You can change the requested voltage with the jumpers.
+If you do, also set `SUPPLY_VOLTAGE` in the firmware's [`src/main.cpp`](https://github.com/sedlak477/owl-firmware/blob/main/src/main.cpp) to the new voltage, otherwise SimpleFOC computes the wrong phase voltages.
+The firmware limits the motor to 4V (`motor.voltage_limit`); keep it below the motor's 7.4V rating.
 
 ## Checks
 
@@ -62,20 +66,27 @@ You are now done with the mechanical assembly! A few checks before continuing:
 	- Power **unplugged**, data plugged in
 		- `5V`: green
 		- `3.3V`: green
-		- `USB`: orange [1]
+		- `USB`: yellow
 		- Rest off (`VM`, `USER`, `DRV FAULT`, `PG`)
 	- Both plugged in
 		- `VM`: green
 		- `5V`: green
 		- `3.3V`: green
-		- `USB`: orange
+		- `USB`: yellow
 		- Rest off  (`USER`, `DRV FAULT`, `PG`)
 
 If those checks passed, you can continue on to flashing the firmware.
 
-2. Download the latest `firmware.uf2` image from the [owl-firmware releases](https://github.com/sedlak477/owl-firmware/releases) page.
-3. Plug in **only** the data cable.
-4. The OWL will show up as a USB thumb drive.
-5. Copy the firmware image to this drive.
-6. The controller will flash the firmware and reset.
-7. Done!
+## Flashing the firmware
+
+1. Download the latest `.uf2` image from the [owl-firmware releases](https://github.com/sedlak477/owl-firmware/releases) page.
+2. Plug in **only** the data cable. On a new board the flash is blank, so the controller starts in BOOT mode by itself. To reflash a board that already has firmware, hold the BOOT button while plugging in the data cable.
+3. The OWL will show up as a USB thumb drive.
+4. Copy the firmware image to this drive.
+5. The controller will flash the firmware and reset.
+6. Done!
+
+## What next
+
+For a first controlled move, use [pyowl](https://github.com/sedlak477/pyowl), the Python library for the OWL.
+To step through orientations and record measurements, use [owl-ranger](https://github.com/sedlak477/owl-ranger).
