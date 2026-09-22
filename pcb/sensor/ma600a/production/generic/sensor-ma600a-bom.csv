@@ -1,0 +1,5 @@
+"Designator","Quantity","Value","Footprint","Manufacturer","MPN","LCSC"
+"C1","1","100n","Capacitor_SMD:C_0603_1608Metric","Yageo","CC0603KRX7R9BB104","C14663"
+"C2","1","1u","Capacitor_SMD:C_0603_1608Metric","Samsung Electro-Mechanics","CL10A105KB8NNNC","C15849"
+"J1","1","781715006","Molex Pico-EZmate 781715006:CONN06_781715006_MOL","Molex","781715006","C107412"
+"U2","1","MA600A","Package_DFN_QFN:QFN-16-1EP_3x3mm_P0.5mm_EP1.75x1.75mm","Monolithic Power Systems","MA600AGQE-0000-Z","C49240579"

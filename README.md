@@ -32,7 +32,7 @@ Step-by-step build instructions, from 3D-printed parts to the first power-up che
 | `cad`            | Link to the Onshape document and 3D-print files.|
 | `docs`           | Assembly instructions, renders, and diagrams.   |
 
-Each PCB folder contains a `schematic.pdf` and a `src` folder with the KiCad project, a STEP model, and a `production` folder with Gerbers, BOM, and placement files for JLCPCB.
+Each PCB folder contains a `schematic.pdf`, the KiCad project in `src`, and production files in `production` (generic, and ready to upload to JLCPCB). See [pcb/README.md](pcb/README.md) for the stackups and how to order the boards.
 
 ## Usage
 
