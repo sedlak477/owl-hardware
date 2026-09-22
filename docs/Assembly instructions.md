@@ -79,6 +79,10 @@ You can change the requested voltage with the jumpers.
 If you do, also set `SUPPLY_VOLTAGE` in the firmware's [`src/main.cpp`](https://github.com/sedlak477/owl-firmware/blob/main/src/main.cpp) to the new voltage, otherwise SimpleFOC computes the wrong phase voltages.
 The firmware limits the motor to 4V (`motor.voltage_limit`); keep it below the motor's 7.4V rating.
 
+The controller's 5V rail comes from its regulator, which runs from the motor supply.
+It can also be powered from USB through the `VBUS` solder jumper JP1 on the controller PCB, which is open as manufactured.
+Bridge JP1 only if the controller should also run from USB power alone: with both power and data connected, the controller's power path can then keep switching between the two sources and make the 5V rail noisy.
+
 ## Checks
 
 You are now done with the mechanical assembly! A few checks before continuing:
@@ -90,10 +94,8 @@ You are now done with the mechanical assembly! A few checks before continuing:
 		- `3.3V`: green
 		- Rest off (`USB`, `USER`, `DRV FAULT`, `PG`)
 	- Power **unplugged**, data plugged in
-		- `5V`: green
-		- `3.3V`: green
-		- `USB`: yellow
-		- Rest off (`VM`, `USER`, `DRV FAULT`, `PG`)
+		- All off, since the controller only runs from the power supply (JP1 open)
+		- If you bridged JP1: `5V` green, `3.3V` green, `USB` yellow, rest off (`VM`, `USER`, `DRV FAULT`, `PG`)
 	- Both plugged in
 		- `VM`: green
 		- `5V`: green
@@ -106,11 +108,12 @@ If those checks passed, you can continue on to flashing the firmware.
 ## Flashing the firmware
 
 1. Download the latest `.uf2` image from the [owl-firmware releases](https://github.com/sedlak477/owl-firmware/releases) page.
-2. Plug in **only** the data cable. On a new board the flash is blank, so the controller starts in BOOT mode by itself. To reflash a board that already has firmware, hold the BOOT button while plugging in the data cable.
-3. The OWL will show up as a USB thumb drive.
-4. Copy the firmware image to this drive.
-5. The controller will flash the firmware and reset.
-6. Done!
+2. Plug in the data cable and the power cable. On a new board the flash is blank, so the controller starts in BOOT mode by itself.
+3. To reflash a board that already has firmware, put it into BOOT mode: hold the BOOT button, press and release RESET, then release BOOT. Holding BOOT while plugging in the power cable works too.
+4. The OWL will show up as a USB thumb drive.
+5. Copy the firmware image to this drive.
+6. The controller will flash the firmware and reset.
+7. Done!
 
 ## What next
 

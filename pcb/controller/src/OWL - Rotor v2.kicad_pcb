@@ -24714,12 +24714,12 @@
 			)
 		)
 	)
-	(footprint "Jumper:SolderJumper-2_P1.3mm_Bridged_RoundedPad1.0x1.5mm"
+	(footprint "Jumper:SolderJumper-2_P1.3mm_Open_RoundedPad1.0x1.5mm"
 		(layer "F.Cu")
 		(uuid "bec9d374-7f35-401d-b720-dcd2f843cf3f")
 		(at 141.5 100.2 -90)
-		(descr "SMD Solder Jumper, 1x1.5mm, rounded Pads, 0.3mm gap, bridged with 1 copper strip")
-		(tags "net tie solder jumper bridged")
+		(descr "SMD Solder Jumper, 1x1.5mm, rounded Pads, 0.3mm gap, open")
+		(tags "solder jumper open")
 		(property "Reference" "JP1"
 			(at 0 -1.8 90)
 			(layer "F.SilkS")
@@ -24757,7 +24757,7 @@
 				)
 			)
 		)
-		(property "Description" "Solder Jumper, 2-pole, closed/bridged"
+		(property "Description" "Solder Jumper, 2-pole, open"
 			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -24770,26 +24770,13 @@
 				)
 			)
 		)
-		(property ki_fp_filters "SolderJumper*Bridged*")
+		(property ki_fp_filters "SolderJumper*Open*")
 		(path "/a2289a7c-e1a8-4652-ad7a-a86f4fb8e90f/e100d397-52e7-4644-bb80-0770ab5aba39")
 		(sheetname "/Power Supply/")
 		(sheetfile "power_supply.kicad_sch")
 		(zone_connect 1)
 		(attr exclude_from_pos_files exclude_from_bom allow_soldermask_bridges)
-		(net_tie_pad_groups "1, 2")
 		(duplicate_pad_numbers_are_jumpers no)
-		(fp_poly
-			(pts
-				(xy 0.25 -0.3) (xy -0.25 -0.3) (xy -0.25 0.3) (xy 0.25 0.3)
-			)
-			(stroke
-				(width 0)
-				(type solid)
-			)
-			(fill yes)
-			(layer "F.Cu")
-			(uuid "7c4b32e3-9a66-4230-b6ea-bdfd0229bc9e")
-		)
 		(fp_rect
 			(start -0.15 -0.75)
 			(end 0.15 0.75)
