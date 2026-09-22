@@ -49,14 +49,9 @@ export_generic() {
 }
 
 export_jlcpcb() {
-  local name="$1" project="$2" output_dir="$3" work_dir="$4"
-  # The toolkit always writes to <project dir>/production, so run it on a copy of src/.
-  local project_copy="$work_dir/jlcpcb-src"
-  cp -r "$(dirname "$project")" "$project_copy"
-  rm -rf "$project_copy/production"
-  local board_copy="$project_copy/$(basename "$project").kicad_pcb"
+  local name="$1" project="$2" output_dir="$3"
 
-  "$KICAD_PYTHON" - "$PLUGIN_DIR" "$PLUGIN_MODULE" "$board_copy" <<'EOF'
+  "$KICAD_PYTHON" - "$PLUGIN_DIR" "$PLUGIN_MODULE" "$project.kicad_pcb" <<'EOF'
 import runpy
 import sys
 
@@ -66,7 +61,7 @@ sys.argv = ["cli", "--path", board, "--autoTranslate", "--autoFill", "--excludeD
 runpy.run_module(f"{plugin_module}.cli", run_name="__main__")
 EOF
 
-  local toolkit_output="$project_copy/production"
+  local toolkit_output="$(dirname "$project")/production"
   local gerber_archives=("$toolkit_output"/*.zip)
   [[ ${#gerber_archives[@]} -eq 1 && -f ${gerber_archives[0]} ]] || { echo "No JLCPCB Gerber archive for $name" >&2; exit 1; }
   mkdir -p "$output_dir"
@@ -83,9 +78,16 @@ export_board() {
   trap 'rm -rf "$work_dir"' RETURN
 
   echo "== $name"
+  # Work on a copy of src/ with freshly filled zones, so both file sets match the current layout
+  # and the Fabrication Toolkit (which always writes to <project dir>/production) leaves src/ alone.
+  local project_copy="$work_dir/src/$(basename "$project")"
+  cp -r "$(dirname "$project")" "$work_dir/src"
+  rm -rf "$work_dir/src/production"
+  kicad-cli pcb drc --refill-zones --save-board -o "$work_dir/drc.rpt" "$project_copy.kicad_pcb" >/dev/null
+
   rm -rf "$production_dir/generic" "$production_dir/jlcpcb"
-  export_generic "$name" "$project" "$production_dir/generic" "$work_dir"
-  export_jlcpcb "$name" "$project" "$production_dir/jlcpcb" "$work_dir"
+  export_generic "$name" "$project_copy" "$production_dir/generic" "$work_dir"
+  export_jlcpcb "$name" "$project_copy" "$production_dir/jlcpcb"
 }
 
 selected_boards=("$@")
