@@ -2057,7 +2057,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "510"
+		(property "Value" "1.43k"
 			(at 229.87 102.8699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2101,7 +2101,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
+		(property "Manufacturer" "Yageo"
 			(at 227.33 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -2112,7 +2112,7 @@
 				)
 			)
 		)
-		(property "MPN" "0402WGF5100TCE"
+		(property "MPN" "RC0402FR-071K43L"
 			(at 227.33 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -2123,7 +2123,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25123"
+		(property "LCSC" "C163483"
 			(at 227.33 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -2801,7 +2801,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "150"
+		(property "Value" "360"
 			(at 265.43 102.8699 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2845,7 +2845,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "UNI-ROYAL"
+		(property "Manufacturer" "FOJAN"
 			(at 262.89 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -2856,7 +2856,7 @@
 				)
 			)
 		)
-		(property "MPN" "0402WGF1500TCE"
+		(property "MPN" "FRC0402F3600TS"
 			(at 262.89 101.6 0)
 			(hide yes)
 			(show_name no)
@@ -2867,7 +2867,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25082"
+		(property "LCSC" "C2930003"
 			(at 262.89 101.6 0)
 			(hide yes)
 			(show_name no)
