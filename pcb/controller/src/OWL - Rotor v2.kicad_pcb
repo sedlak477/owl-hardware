@@ -31888,7 +31888,7 @@
 		(path "/af8f7980-7f7f-452a-9a0e-f2782f72c6b1/b4049282-de3e-474c-9045-43e053599606/72aa83f3-7ba6-4d4d-a6e4-cd13d2ba925c")
 		(sheetname "/RP2354B/RM2/")
 		(sheetfile "rm2.kicad_sch")
-		(attr smd)
+		(attr smd dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start -0.153641 0.379999)
@@ -32134,7 +32134,7 @@
 		(path "/af8f7980-7f7f-452a-9a0e-f2782f72c6b1/b4049282-de3e-474c-9045-43e053599606/1a419604-4b49-4c9a-b544-d435b0ea9f3f")
 		(sheetname "/RP2354B/RM2/")
 		(sheetfile "rm2.kicad_sch")
-		(attr smd)
+		(attr smd dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start -0.153641 0.379999)
@@ -32959,7 +32959,7 @@
 		(path "/af8f7980-7f7f-452a-9a0e-f2782f72c6b1/13cc79f7-ea06-44d7-8bff-544aeb79b981")
 		(sheetname "/RP2354B/")
 		(sheetfile "rp2354b.kicad_sch")
-		(attr smd)
+		(attr smd dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start -0.14058 -0.51)
@@ -33206,7 +33206,7 @@
 		(sheetname "/RP2354B/")
 		(sheetfile "rp2354b.kicad_sch")
 		(zone_connect 2)
-		(attr smd)
+		(attr smd dnp)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start -0.107835 -0.36)

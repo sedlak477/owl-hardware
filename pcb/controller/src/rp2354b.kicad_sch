@@ -7738,7 +7738,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "13cc79f7-ea06-44d7-8bff-544aeb79b981")
 		(property "Reference" "C44"
 			(at 202.946 90.678 0)
@@ -13900,7 +13900,7 @@
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "cca2538d-7e44-40e1-b005-9e89c8cb1422")
 		(property "Reference" "C43"
 			(at 188.976 90.424 0)

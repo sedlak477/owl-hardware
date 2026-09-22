@@ -2,7 +2,7 @@
 
 | Board                         | Folder             | Layers | Size           | Thickness | Copper                    | Solder mask | Parts on    |
 | :---------------------------- | :----------------- | :----- | :------------- | :-------- | :------------------------ | :---------- | :---------- |
-| Rotor / controller            | `controller/`      | 4      | 60 x 60 mm     | 1.6 mm    | 1 oz outer, 0.5 oz inner  | Purple      | both sides  |
+| Rotor / controller            | `controller/`      | 4      | 60 x 60 mm     | 1.6 mm    | 1 oz outer, 0.5 oz inner  | Purple      | top only    |
 | Stator                        | `stator/`          | 2      | 44 x 44 mm     | 1.6 mm    | 1 oz                      | Black       | both sides  |
 | Magnetic sensor (MA600A)      | `sensor/ma600a/`   | 2      | 22.3 x 20 mm   | 1.6 mm    | 1 oz                      | Yellow      | both sides  |
 
@@ -26,11 +26,11 @@ Order each board (`controller`, `stator`, `sensor-ma600a`) separately. Download 
 
 1. Go to [jlcpcb.com](https://jlcpcb.com), click *Order now*, and upload `<board>/<board>-gerbers.zip`. Don't unzip it, JLCPCB wants the zip.
 2. Check that layers, size and thickness match the table above, and pick the solder mask color you like.
-3. Enable *PCB Assembly*. All boards have parts on both sides, so select assembly on both sides.
+3. Enable *PCB Assembly*. The controller is assembled on the top side only; the stator and the sensor have parts on both sides, so select assembly on both sides for them.
 4. Upload `<board>/<board>-bom.csv` as the BOM and `<board>/<board>-positions.csv` as the CPL (pick-and-place) file.
 5. Check the part matching, then check every part in the placement preview: its pins must sit on their pads, and polarized parts (LEDs, ICs, connectors) must point the right way. JLCPCB's 3D models don't always line up with their own parts, so fix any rotated or shifted part in the preview before ordering.
 
-The controller's RM2 radio module (U6) and microSD socket (J8) are marked DNP and are not assembled.
+On the controller, the optional RM2 radio module (U6) and microSD socket (J8) are marked DNP and are not assembled, and neither are their support parts on the bottom side (C43, C44, R1, R2). Solder them by hand if you need them; their values and part numbers are in the schematic.
 
 ## Ordering elsewhere
 
