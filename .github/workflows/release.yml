@@ -1,0 +1,69 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          lfs: true
+
+      - name: Package production and print files
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          declare -A boards=([controller]=pcb/controller [stator]=pcb/stator [sensor-ma600a]=pcb/sensor/ma600a)
+
+          for variant in jlcpcb generic; do
+            staging="staging/owl-$TAG-$variant"
+            for board in "${!boards[@]}"; do
+              mkdir -p "$staging/$board"
+              cp "${boards[$board]}/production/$variant/"* "$staging/$board/"
+              if [[ $variant == generic ]]; then
+                cp "${boards[$board]}/schematic.pdf" "$staging/$board/$board-schematic.pdf"
+              fi
+            done
+            cp pcb/README.md "$staging/README.md"
+            (cd staging && zip -qr "../dist/owl-$TAG-$variant.zip" "owl-$TAG-$variant")
+          done
+
+          staging="staging/owl-$TAG-3d-print"
+          mkdir -p "$staging"
+          cp cad/3d-print/* "$staging/"
+          (cd staging && zip -qr "../dist/owl-$TAG-3d-print.zip" "owl-$TAG-3d-print")
+
+          # Fail if an LFS pointer instead of the real file ended up in a package.
+          for archive in dist/*.zip; do
+            if unzip -p "$archive" | grep -aq "^version https://git-lfs.github.com/spec"; then
+              echo "LFS pointer found in $archive" >&2
+              exit 1
+            fi
+          done
+          ls -l dist
+
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}
+        run: |
+          cat > notes.md <<EOF
+          ## Files
+
+          - \`owl-$TAG-jlcpcb.zip\`: Gerbers, BOM and pick-and-place files for all three boards, ready to upload to JLCPCB.
+          - \`owl-$TAG-generic.zip\`: manufacturer-neutral Gerbers, drill files, IPC-D-356 netlists, BOMs with MPNs, position files and schematics.
+          - \`owl-$TAG-3d-print.zip\`: \`OWL.3mf\` with all printed parts laid out on a plate, and a STEP file per part.
+
+          See [how to order the boards]($REPO_URL/blob/$TAG/pcb/README.md) and the [assembly instructions]($REPO_URL/blob/$TAG/docs/Assembly%20instructions.md).
+          EOF
+          gh release create "$TAG" dist/*.zip --title "OWL $TAG" --notes-file notes.md --generate-notes --verify-tag
