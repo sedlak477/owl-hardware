@@ -10,9 +10,15 @@ The OWL is a rotating platform driven by a BLDC motor under field-oriented contr
 Power and USB data are passed from the stationary base to the rotating part through a slip ring,
 so devices mounted on top can be rotated continuously while staying connected to a host.
 
-## Assembly
+## Building an OWL
 
-Step-by-step build instructions, from 3D-printed parts to the first power-up checks and flashing the firmware, are in [docs/Assembly instructions.md](docs/Assembly%20instructions.md).
+1. Download the files from the [latest release](https://github.com/sedlak477/owl-hardware/releases/latest):
+   - `owl-<version>-jlcpcb.zip`: everything needed to order the three assembled PCBs from JLCPCB
+   - `owl-<version>-3d-print.zip`: the 3D-printed parts
+   - `owl-<version>-generic.zip`: manufacturer-neutral PCB files and schematics, if you order elsewhere
+2. Order the PCBs, see [pcb/README.md](pcb/README.md).
+3. Print the parts, see [cad/README.md](cad/README.md).
+4. Assemble the OWL and flash the firmware, see the [assembly instructions](docs/Assembly%20instructions.md).
 
 ## Architecture
 
@@ -34,7 +40,7 @@ Step-by-step build instructions, from 3D-printed parts to the first power-up che
 
 Each PCB folder contains a `schematic.pdf`, the KiCad project in `src`, and production files in `production` (generic, and ready to upload to JLCPCB). See [pcb/README.md](pcb/README.md) for the stackups and how to order the boards.
 
-## Usage
+## Editing the design
 
 Requirements:
 
@@ -46,7 +52,8 @@ git lfs install
 git clone git@github.com:sedlak477/owl-hardware.git
 ```
 
-Fabrication outputs are generated with the [Fabrication Toolkit](https://github.com/bennymeg/Fabrication-Toolkit) KiCad plugin.
+After changing a board, regenerate its production files with `pcb/export-production.sh` (see [pcb/README.md](pcb/README.md#regenerating-the-production-files)).
+Pushing a tag starting with `v` (e.g. `v1.1.0`) creates a release with the packaged production and 3D-print files.
 
 ## Related resources
 

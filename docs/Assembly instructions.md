@@ -1,8 +1,8 @@
-1. 3D-print all parts & cleanup from print (especially the payload connector mounting holes). The CAD files are in [`cad/`](../cad/README.md). Print the lower parts, especially the motor adapter and everything else touching the motor, in a heat-resistant filament like ABS; the motor gets warm. For the remaining parts the material does not matter.
+1. 3D-print all parts & cleanup from print (especially the payload connector mounting holes). Download `owl-<version>-3d-print.zip` from the [latest release](https://github.com/sedlak477/owl-hardware/releases/latest) and print `OWL.3mf`: it has all parts for one OWL laid out on one plate, ready to slice. Print it in a heat-resistant filament like ABS or ASA, because the motor gets warm and the motor adapter and the parts around it must not soften. If you want to arrange the parts yourself, or print only some of them in another material, use the STEP files in the same archive instead (see [`cad/`](../cad/README.md)).
 2. Prepare materials
 	1. 1x BLDC motor: SparkFun [ROB-20441](https://www.sparkfun.com/three-phase-brushless-gimbal-stabilizer-motor.html) (Mouser 474-ROB-20441)
 	2. 1x slip ring, 6 wire, 2A: SparkFun [ROB-13064](https://www.sparkfun.com/slip-ring-6-wire-2a.html) (Mouser 474-ROB-13064)
-	3. 1x stator PCB, 1x controller PCB, 1x sensor PCB
+	3. 1x stator PCB, 1x controller PCB, 1x sensor PCB, ordered assembled from JLCPCB with the files in `owl-<version>-jlcpcb.zip` from the [latest release](https://github.com/sedlak477/owl-hardware/releases/latest); see [how to order the boards](../pcb/README.md)
 	4. 3x M5 nuts
 	5. 3x M5 counter-sunk screws, 40mm long
 	6. 3x M1.6x6 flat-head screws

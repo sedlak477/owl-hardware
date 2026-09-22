@@ -6,7 +6,17 @@ The mechanical parts of the OWL are designed in Onshape:
 
 The Onshape document is the source of truth. Anything in this folder is an export of it.
 
-All printed parts are in [`3d-print/`](3d-print/):
+## Printing the parts
+
+Download `owl-<version>-3d-print.zip` from the [latest release](https://github.com/sedlak477/owl-hardware/releases/latest) and print **`OWL.3mf`**.
+It contains all parts for one OWL, already laid out on one plate with a brim, so you only have to open it in your slicer, pick your printer and filament, and print.
+Use a heat-resistant filament like ABS or ASA: the motor gets warm, and the motor adapter and the parts around it must not soften.
+
+Alternatively, the archive has one STEP file per part, for example to arrange the parts yourself or to print only the motor adapter in ABS and the rest in another material.
+
+## Files
+
+The same files are in [`3d-print/`](3d-print/):
 
 | File                               | Content                                                             |
 | :--------------------------------- | :------------------------------------------------------------------ |

@@ -18,19 +18,23 @@ Each board folder contains:
 | `production/generic/` | Files for any manufacturer (see below).                                          |
 | `production/jlcpcb/`  | Files ready to upload to JLCPCB for fabrication and assembly.                    |
 
+The easiest way to get the files is the [latest release](https://github.com/sedlak477/owl-hardware/releases/latest): `owl-<version>-jlcpcb.zip` has the JLCPCB files and `owl-<version>-generic.zip` the generic files and schematics, each with one folder per board.
+
 ## Ordering from JLCPCB
 
-1. Go to [jlcpcb.com](https://jlcpcb.com), click *Order now*, and upload `production/jlcpcb/<board>-gerbers.zip`.
+Order each board (`controller`, `stator`, `sensor-ma600a`) separately. Download and unzip `owl-<version>-jlcpcb.zip`, then for each board:
+
+1. Go to [jlcpcb.com](https://jlcpcb.com), click *Order now*, and upload `<board>/<board>-gerbers.zip`. Don't unzip it, JLCPCB wants the zip.
 2. Check that layers, size and thickness match the table above, and pick the solder mask color you like.
 3. Enable *PCB Assembly*. All boards have parts on both sides, so select assembly on both sides.
-4. Upload `production/jlcpcb/<board>-bom.csv` as the BOM and `production/jlcpcb/<board>-positions.csv` as the CPL (pick-and-place) file.
+4. Upload `<board>/<board>-bom.csv` as the BOM and `<board>/<board>-positions.csv` as the CPL (pick-and-place) file.
 5. Check the part matching, then check every part in the placement preview: its pins must sit on their pads, and polarized parts (LEDs, ICs, connectors) must point the right way. JLCPCB's 3D models don't always line up with their own parts, so fix any rotated or shifted part in the preview before ordering.
 
 The controller's RM2 radio module (U6) and microSD socket (J8) are marked DNP and are not assembled.
 
 ## Ordering elsewhere
 
-`production/generic/` contains manufacturer-neutral files:
+`owl-<version>-generic.zip` (or `production/generic/` in each board folder) contains manufacturer-neutral files, plus each board's schematic:
 
 | File                      | Content                                                                                       |
 | :------------------------ | :-------------------------------------------------------------------------------------------- |
