@@ -24,21 +24,47 @@
 	2. Ensure the M5 bolts are already insert into the big holes
 	3. Align the motor (magnetic ring facing away) with the screws and tighten the screws
 	4. Ensure the motor does not wiggle and it rotates freely. If it sounds like it is scraping, then the screws are going in too far and are damaging the motors internals!
+
+	<img src="assembly/07-motor-on-adapter.jpg" alt="Motor mounted on the motor adapter with the three M5 bolts inserted" width="400">
+
 8. Thread the cables of the slip ring through the motor and slide it onto the M5 screws. The thin side of the slip ring should disappear into the motor adapter and the flanch should sit flush against the motor adapter.
+
+	<img src="assembly/08-slip-ring-into-motor.jpg" alt="Slip ring cables being threaded through the motor and motor adapter" width="400">
+
 9. Add one small spacer to each M5 screw, then slide on the stator PCB with the connectors facing *away* from the assembly. Ensure you thread the slip ring cables through the large center hole of the stator PCB and the connectors are aligned with the symbols (the JST connector should be on the side where there's no symbol)
+
+	<img src="assembly/09-stator-pcb-on-spacers.jpg" alt="Stator PCB slid onto the M5 bolts over the small spacers, slip ring cables through the center hole" width="400">
+
 10. Cut the cables to size (leave some slack to allow for some mistakes when crimping), strip the ends, and crimp on the JST crimps.
-11. Insert the crimps into the connector housing, remember the order (or better, take a picture). The order does not matter, but it just has to match the order on the other side. I recommend ordering them so the cables can lie pretty coming out of the connector. (Picture for color order)
+11. Insert the crimps into the connector housing, remember the order (or better, take a picture). The order does not matter, but it just has to match the order on the other side. I recommend ordering them so the cables can lie pretty coming out of the connector.
+
+	<img src="assembly/11-slip-ring-wire-order.jpg" alt="Crimped slip ring wires in the JST PA housing, in the order yellow, red, black, green, orange, brown" width="400">
+
+	<img src="assembly/11-stator-connector-wired.jpg" alt="Slip ring wires crimped and inserted into the housing, plugged into the stator PCB" width="400">
+
 12. Insert the connector
 13. Slide two big spacers onto each M5 screw, carefully bend the cables to the side, and slide on the tripod adapter.
+
+	<img src="assembly/13-big-spacers.jpg" alt="Big spacers on the M5 bolts with the slip ring cables bent to the side" width="400">
+
 14. Screw the M5 nuts onto the ends of the M5 screws. Depending on 3D printing tolerences, an allen key should just fit beside the motor to turn the screw. After a few rotations, the nut will be held in place by the tripod adapter and you can tighten it all the way.
+
+	<img src="assembly/14-stator-finished.jpg" alt="Finished stator assembly with the tripod adapter, M5 nuts and heat insert" width="400">
+
 15. The stator assembly is now finished!
 16. Thread the slip ring and motor cables though the center hole of the controller PCB and place it on top of the motor.
+
+	<img src="assembly/16-controller-pcb-on-motor.jpg" alt="Controller PCB placed on top of the motor with the slip ring and motor cables through its center hole" width="400">
+
 17. Again, cut the wires to length and crimp on the connector (same as steps 10 & 11). Ensure you insert the cables in the same order as on the other end.
 18. Before plugging anything in, check the slip ring wiring with a multimeter. Unplug the housing on the stator side and measure continuity between the two housings: pin 1 must reach pin 1, pin 2 must reach pin 2, and so on. If the crimps went in mirrored, the order still "matches" but VM ends up on VBUS. Also check that no two neighbouring pins are shorted by a crimp.
 19. Plug in the slip ring connector and the motor connector.
 20. !!!!! Make sure the slip ring cables are bent to the side and lay flat against the PCB, so the sensor can later be mounted on top.
 21. Plug the Pico-EZmate cable into the sensor PCB. Lay the sensor flat on the table align the connector from the top and just press down, the connector should click into place very easily.
 22. Thread the M1.6x10 screws through the payload connector, slide on the sensor PCB (the sensor IC facing *away* from the payload connector), and slide on the board spacers. The fit on the spacers is tight, so I recommend screwing into them and letting 2mm stick out for alignment.
+
+	<img src="assembly/22-payload-connector-side.jpg" alt="Payload connector with the sensor PCB and board spacers, side view" width="400"> <img src="assembly/22-payload-connector-top.jpg" alt="Payload connector with the sensor PCB and board spacers, top view" width="400">
+
 23. Align the controller PCB with the motor's mounting holes, add the payload connector + sensor assembly on top, and screw the three M1.6 screws down into the motor.
 24. Plug the other end of the Pico-EZmate cable into the controller PCB.
 
