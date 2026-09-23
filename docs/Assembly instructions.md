@@ -115,6 +115,26 @@ If those checks passed, you can continue on to flashing the firmware.
 6. The controller will flash the firmware and reset.
 7. Done!
 
+## First power-up and the 0° position
+
+Every time the controller starts (power-up, reset, or right after flashing), the firmware:
+
+1. Calibrates the motor against the sensor: the top twitches briefly back and forth.
+2. Slowly turns the top to its 0° position. This can take up to almost one full revolution.
+
+Keep the top free to rotate while this happens: if it is blocked, the calibration fails.
+You can tell the two cases apart by hand:
+
+- **Calibrated:** the top resists when you push it and always returns to its set point.
+- **Calibration failed:** the motor is switched off and the top turns freely by hand. Power-cycle the OWL to try again.
+
+The 0° position comes from the magnetic sensor, so it is the same physical orientation every time the OWL starts, as long as it is not taken apart.
+It is not tied to any mark on the OWL and differs from one OWL to the next.
+To get a known orientation in your test setup, power the OWL up, wait until it has turned to 0°, and then turn the whole OWL (for example on its tripod) until the payload faces your reference direction.
+Pressing the `USER` button also sends the OWL back to 0° (one second after you release it).
+
+The controller and sensor PCBs both have a `0°` silkscreen mark. You don't need to line them up: the firmware does not use them. Defining a mechanical zero with these marks is future work.
+
 ## What next
 
 For a first controlled move, use [pyowl](https://github.com/sedlak477/pyowl), the Python library for the OWL.
