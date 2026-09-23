@@ -10,6 +10,18 @@ The OWL is a rotating platform driven by a BLDC motor under field-oriented contr
 Power and USB data are passed from the stationary base to the rotating part through a slip ring,
 so devices mounted on top can be rotated continuously while staying connected to a host.
 
+## Status
+
+- **[v1.0.0](https://github.com/sedlak477/owl-hardware/releases/tag/v1.0.0)** is the OWL as built and tested. It works, with the known issues listed in its release notes:
+  the 5V rail can oscillate when USB and the power supply are both connected (workaround: cut the controller's `VBUS` jumper JP1),
+  the stator's data USB-C port only works in one cable orientation,
+  the sensor's mounting holes are missing (drill them, 1.8 mm),
+  the green LEDs are very bright,
+  and the USB hub (IC1) has no pin-1 marker.
+- **Releases after v1.0.0**, including the latest, should fix these issues, but no boards have been built from them yet, so they are **untested**.
+  Other changes since the built boards: plated shell-tab holes for the controller's USB-C connector J3, additional vias on the sensor, a different part for the controller's `USER` LED D7, and no assembled parts on the controller's bottom side.
+- The 5V oscillation is only worked around: JP1 now ships open, so the controller runs from the power supply only (see [Power supply](docs/Assembly%20instructions.md#power-supply)). A proper fix is planned for the next board revision.
+
 ## Building an OWL
 
 1. Download the files from the [latest release](https://github.com/sedlak477/owl-hardware/releases/latest):
