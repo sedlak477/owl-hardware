@@ -22,13 +22,25 @@ The easiest way to get the files is the [latest release](https://github.com/sedl
 
 ## Ordering from JLCPCB
 
+> [!WARNING]
+> **Check the rotation of every part in JLCPCB's placement preview before you order.**
+> JLCPCB's part models don't always line up with the footprints, so some parts can show up rotated (often by 90° or 180°) or shifted.
+> JLCPCB assembles the board as the preview shows it: a wrongly rotated IC, LED or connector is soldered on the wrong way round, and the board has to be reworked or thrown away.
+> See step 5 below.
+
 Order each board (`controller`, `stator`, `sensor-ma600a`) separately. Download and unzip `owl-<version>-jlcpcb.zip`, then for each board:
 
 1. Go to [jlcpcb.com](https://jlcpcb.com), click *Order now*, and upload `<board>/<board>-gerbers.zip`. Don't unzip it, JLCPCB wants the zip.
 2. Check that layers, size and thickness match the table above, and pick the solder mask color you like.
 3. Enable *PCB Assembly*. The controller is assembled on the top side only; the stator and the sensor have parts on both sides, so select assembly on both sides for them.
 4. Upload `<board>/<board>-bom.csv` as the BOM and `<board>/<board>-positions.csv` as the CPL (pick-and-place) file.
-5. Check the part matching, then check every part in the placement preview: its pins must sit on their pads, and polarized parts (LEDs, ICs, connectors) must point the right way. JLCPCB's 3D models don't always line up with their own parts, so fix any rotated or shifted part in the preview before ordering.
+5. Check the part matching, then go through **every part** in the placement preview and check both its position and its rotation:
+   - Position: its pins sit on their pads.
+   - Rotation of ICs: the pin-1 marker on the part (dot, notch or bevel) sits at the pin-1 marker on the silkscreen.
+   - Rotation of LEDs: the cathode sits at the cathode marker on the silkscreen.
+   - Rotation of connectors: the part matches its silkscreen outline, with the opening on the correct side.
+
+   Rotate or move any part that is off directly in the preview before ordering. Resistors and ceramic capacitors are not polarized, so for them a 180° rotation does not matter.
 
 On the controller, the optional RM2 radio module (U6) and microSD socket (J8) are marked DNP and are not assembled, and neither are their support parts on the bottom side (C43, C44, R1, R2). Solder them by hand if you need them; their values and part numbers are in the schematic.
 
@@ -44,7 +56,8 @@ On the controller, the optional RM2 radio module (U6) and microSD socket (J8) ar
 | `<board>-positions.csv`   | Pick-and-place file as exported by KiCad (mm, rotation in KiCad convention, both sides).      |
 
 The Gerbers work at any PCB manufacturer.
-Assembly houses usually want the BOM and position files in their own format; the columns in the generic files map directly to theirs, but check the rotation of polarized parts in their placement preview.
+Assembly houses usually want the BOM and position files in their own format; the columns in the generic files map directly to theirs.
+Rotation conventions differ between assembly houses, so **check the rotation of every polarized part in their placement preview**, the same way as for JLCPCB (step 5 above).
 The JLCPCB position file is not generic: it contains JLCPCB-specific rotation and offset corrections.
 
 ## Regenerating the production files

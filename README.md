@@ -19,7 +19,7 @@ so devices mounted on top can be rotated continuously while staying connected to
   the green LEDs are very bright,
   and the USB hub (IC1) has no pin-1 marker.
 - **Releases after v1.0.0**, including the latest, should fix these issues, but no boards have been built from them yet, so they are **untested**.
-  Other changes since the built boards: plated shell-tab holes for the controller's USB-C connector J3, additional vias on the sensor, a different part for the controller's `USER` LED D7, and no assembled parts on the controller's bottom side.
+  Other changes since the built boards: plated shell-tab holes for the controller's USB-C connector J3, a different part for the controller's `USER` LED D7, and no assembled parts on the controller's bottom side.
 - The 5V oscillation is only worked around: JP1 now ships open, so the controller runs from the power supply only (see [Power supply](docs/Assembly%20instructions.md#power-supply)). A proper fix is planned for the next board revision.
 
 ## Building an OWL
