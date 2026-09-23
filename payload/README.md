@@ -28,6 +28,9 @@ Twist it back to take it off.
 | [`quarter-inch-thread`](adapters/quarter-inch-thread/README.md) | Anything with a camera tripod screw (female 1/4"-20 thread) |
 | [`zip-tie-ring`](adapters/zip-tie-ring/README.md)          | Anything you can fix with zip ties or straps                     |
 
+These adapters were made for our own experiments, and some of them are quick designs that could be done better.
+If you improve one, please contribute it back (see [Contributing](#contributing)).
+
 ## Using adapters without an OWL
 
 The [tripod mount](mounts/tripod/README.md) screws onto a camera tripod and has the same payload connector as the OWL, so every adapter fits it.
@@ -65,7 +68,7 @@ It is in the [Onshape document](https://cad.onshape.com/documents/fccfa08dfedefe
 
 ## Contributing
 
-New adapters and mounts are welcome. Add a folder `adapters/<name>/` (or `mounts/<name>/`) with a short lowercase name without spaces, for example the board it holds, containing:
+New adapters and mounts are welcome, and so are improvements to the existing ones. Add a folder `adapters/<name>/` (or `mounts/<name>/`) with a short lowercase name without spaces, for example the board it holds, containing:
 
 - `<name>.step`: the model
 - `<name>.png`: an image of it
