@@ -13,21 +13,21 @@
 	11. 2x USB-C cables. Take care with cheap cables: many are charge-only and have no data lines.
 	12. 1x USB-C power supply that can deliver the voltage the stator requests (see below)
 3. Tools: soldering iron (for the heat insert), crimping tool for JST PA contacts, wire strippers, side cutters, 2mm allen key, multimeter
-4. Prepare PCBs (Remove panels)
-5. Press 1/4'' heat into stator
+4. Break the PCBs out of their panels, if they came panelized: snap or cut off the panel rails and file the leftover breakaway tabs flush.
+5. Press the 1/4'' heat insert into the tripod adapter
 	1. Insert until 1mm still sticks out
 	2. While still hot, turn around and press against flat surface (CAUTION: Don't press on the center with your finger or you could burn yourself on the heat insert)
 	3. This ensures the insert is level with the bottom surface
 6. Put the M5 bolts into the motor adapter
 7. Mount the motor to the top of the motor adapter
 	1. Pre-screw the M1.6x6 screws into the small holes; Leave 1/2mm sticking out of the top to make aligning the motor easier
-	2. Ensure the M5 bolts are already insert into the big holes
+	2. Ensure the M5 bolts are already inserted into the big holes
 	3. Align the motor (magnetic ring facing away) with the screws and tighten the screws
 	4. Ensure the motor does not wiggle and it rotates freely. If it sounds like it is scraping, then the screws are going in too far and are damaging the motors internals!
 
 	<img src="assembly/07-motor-on-adapter.jpg" alt="Motor mounted on the motor adapter with the three M5 bolts inserted" width="400">
 
-8. Thread the cables of the slip ring through the motor and slide it onto the M5 screws. The thin side of the slip ring should disappear into the motor adapter and the flanch should sit flush against the motor adapter.
+8. Thread the cables of the slip ring through the motor and slide it onto the M5 screws. The thin side of the slip ring should disappear into the motor adapter and the flange should sit flush against the motor adapter.
 
 	<img src="assembly/08-slip-ring-into-motor.jpg" alt="Slip ring cables being threaded through the motor and motor adapter" width="400">
 
@@ -47,12 +47,12 @@
 
 	<img src="assembly/13-big-spacers.jpg" alt="Big spacers on the M5 bolts with the slip ring cables bent to the side" width="400">
 
-14. Screw the M5 nuts onto the ends of the M5 screws. Depending on 3D printing tolerences, an allen key should just fit beside the motor to turn the screw. After a few rotations, the nut will be held in place by the tripod adapter and you can tighten it all the way.
+14. Screw the M5 nuts onto the ends of the M5 screws. Depending on 3D printing tolerances, an allen key should just fit beside the motor to turn the screw. After a few rotations, the nut will be held in place by the tripod adapter and you can tighten it all the way.
 
 	<img src="assembly/14-stator-finished.jpg" alt="Finished stator assembly with the tripod adapter, M5 nuts and heat insert" width="400">
 
 15. The stator assembly is now finished!
-16. Thread the slip ring and motor cables though the center hole of the controller PCB and place it on top of the motor.
+16. Thread the slip ring and motor cables through the center hole of the controller PCB and place it on top of the motor.
 
 	<img src="assembly/16-controller-pcb-on-motor.jpg" alt="Controller PCB placed on top of the motor with the slip ring and motor cables through its center hole" width="400">
 
@@ -60,7 +60,7 @@
 18. Before plugging anything in, check the slip ring wiring with a multimeter. Unplug the housing on the stator side and measure continuity between the two housings: pin 1 must reach pin 1, pin 2 must reach pin 2, and so on. If the crimps went in mirrored, the order still "matches" but VM ends up on VBUS. Also check that no two neighbouring pins are shorted by a crimp.
 19. Plug in the slip ring connector and the motor connector.
 20. !!!!! Make sure the slip ring cables are bent to the side and lay flat against the PCB, so the sensor can later be mounted on top.
-21. Plug the Pico-EZmate cable into the sensor PCB. Lay the sensor flat on the table align the connector from the top and just press down, the connector should click into place very easily.
+21. Plug the Pico-EZmate cable into the sensor PCB. Lay the sensor flat on the table, align the connector from the top and just press down, the connector should click into place very easily.
 22. Thread the M1.6x10 screws through the payload connector, slide on the sensor PCB (the sensor IC facing *away* from the payload connector), and slide on the board spacers. The fit on the spacers is tight, so I recommend screwing into them and letting 2mm stick out for alignment.
 
 	<img src="assembly/22-payload-connector-side.jpg" alt="Payload connector with the sensor PCB and board spacers, side view" width="400"> <img src="assembly/22-payload-connector-top.jpg" alt="Payload connector with the sensor PCB and board spacers, top view" width="400">
