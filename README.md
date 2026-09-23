@@ -31,13 +31,14 @@ so devices mounted on top can be rotated continuously while staying connected to
 2. Order the PCBs, see [pcb/README.md](pcb/README.md).
 3. Print the parts, see [cad/README.md](cad/README.md).
 4. Assemble the OWL and flash the firmware, see the [assembly instructions](docs/Assembly%20instructions.md).
+5. Print an adapter for your payload, see [payload/README.md](payload/README.md).
 
 ## Architecture
 
 ![Hardware architecture](docs/OWL%20HW%20arch.drawio.png)
 
 - **Stator PCB**: Sits in the stationary base. Provides the USB-C power input with a USB PD trigger (CH224K) and the USB data port to the host.
-- **Rotor PCB** (controller): Rotates with the platform. Contains the RP2354B controller, the DRV8311 BLDC driver, 5 V and 3.3 V regulators, a USB hub with a passthrough port, and an I²C/UART port.
+- **Rotor PCB** (controller): Rotates with the platform. Contains the RP2354B controller, the DRV8311 BLDC driver, 5 V and 3.3 V regulators, a USB hub with a passthrough port for the payload, and a Qwiic (I²C) port.
 - **Magnetic sensor PCB**: Measures the rotor angle for motor control using a magnetic angle sensor.
 
 ## Repository structure
@@ -48,6 +49,7 @@ so devices mounted on top can be rotated continuously while staying connected to
 | `pcb/stator`     | KiCad project for the stator PCB.               |
 | `pcb/sensor`     | KiCad projects for the magnetic sensor PCBs.    |
 | `cad`            | Link to the Onshape document and 3D-print files.|
+| `payload`        | Adapters for mounting payloads, and the payload interface. |
 | `docs`           | Assembly instructions, renders, and diagrams.   |
 
 Each PCB folder contains a `schematic.pdf`, the KiCad project in `src`, and production files in `production` (generic, and ready to upload to JLCPCB). See [pcb/README.md](pcb/README.md) for the stackups and how to order the boards.

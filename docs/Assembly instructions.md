@@ -137,5 +137,6 @@ The controller and sensor PCBs both have a `0°` silkscreen mark. You don't need
 
 ## What next
 
+To mount your device on the OWL, print an adapter for it, see [`payload/`](../payload/README.md).
 For a first controlled move, use [pyowl](https://github.com/sedlak477/pyowl), the Python library for the OWL.
 To step through orientations and record measurements, use [owl-ranger](https://github.com/sedlak477/owl-ranger).
