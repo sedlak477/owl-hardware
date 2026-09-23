@@ -60,7 +60,9 @@ Assembly houses usually want the BOM and position files in their own format; the
 Rotation conventions differ between assembly houses, so **check the rotation of every polarized part in their placement preview**, the same way as for JLCPCB (step 5 above).
 The JLCPCB position file is not generic: it contains JLCPCB-specific rotation and offset corrections.
 
-## Regenerating the production files
+## Regenerating the production files (only after changing the design)
+
+Not needed for ordering boards: the production files in each release are ready to use.
 
 Run `pcb/export-production.sh` (or `pcb/export-production.sh <board>` for one board: `controller`, `stator`, `sensor-ma600a`).
 It needs `kicad-cli` (KiCad 10) and, for the JLCPCB files, the [Fabrication Toolkit](https://github.com/bennymeg/Fabrication-Toolkit) KiCad plugin.

@@ -66,7 +66,7 @@ git lfs install
 git clone git@github.com:sedlak477/owl-hardware.git
 ```
 
-After changing a board, regenerate its production files with `pcb/export-production.sh` (see [pcb/README.md](pcb/README.md#regenerating-the-production-files)).
+After changing a board, regenerate its production files with `pcb/export-production.sh` (see [pcb/README.md](pcb/README.md#regenerating-the-production-files-only-after-changing-the-design)).
 Pushing a tag starting with `v` (e.g. `v1.1.0`) creates a release with the packaged production and 3D-print files.
 
 ## Related resources

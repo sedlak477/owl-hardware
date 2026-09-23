@@ -40,13 +40,13 @@ Use it for devices that stay fixed in your setup, such as anchors or reference n
 
 The controller PCB on the rotating part offers two connectors for the payload.
 
-### USB-C passthrough (J3)
+### USB-C passthrough
 
 The main connection for a payload.
-J3 is a downstream port of the controller's USB 2.0 hub, so a payload plugged in there shows up on the host next to the OWL itself, over the same data cable through the slip ring.
-It also powers the payload from the controller's 5V rail. With the controller's `VBUS` jumper JP1 open (as manufactured), that rail runs from the power supply, so the payload is only powered while the power supply is connected.
+This port is a downstream port of the controller's USB 2.0 hub, so a payload plugged in there shows up on the host next to the OWL itself, over the same data cable through the slip ring.
+It also powers the payload from the controller's 5V rail. With the controller's `VBUS` solder jumper open (as manufactured), that rail runs from the power supply, so the payload is only powered while the power supply is connected.
 
-### Qwiic / STEMMA QT (J9)
+### Qwiic / STEMMA QT
 
 A JST SH 4-pin connector with the Qwiic / STEMMA QT pinout:
 
@@ -57,9 +57,9 @@ A JST SH 4-pin connector with the Qwiic / STEMMA QT pinout:
 | 3   | SDA    | GPIO0   |
 | 4   | SCL    | GPIO1   |
 
-J9 connects to the OWL's controller, not to the host, so using it requires changes to the [firmware](https://github.com/sedlak477/owl-firmware).
+This port connects to the OWL's controller, not to the host, so using it requires changes to the [firmware](https://github.com/sedlak477/owl-firmware).
 The controller has no pull-up resistors on SDA and SCL; most Qwiic / STEMMA QT modules have their own.
-GPIO0 and GPIO1 can also be configured as UART0 TX and RX, so J9 can be used as a UART port instead.
+GPIO0 and GPIO1 can also be configured as UART0 TX and RX, so the port can be used as a UART port instead.
 
 ## Designing your own adapter
 
