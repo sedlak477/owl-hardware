@@ -77,10 +77,10 @@ adapter().union(holder.translate((0, 0, ADAPTER_T)))
 - **Mount face:** the top face of the adapter, solid Ø39 at z = 4. The STEP is in print orientation, with the mating face on z = 0.
 - **Keep-out:** nothing below z = 4 within 18 mm of the axis (lug pockets and detent groove). Don't cover the alignment grooves on the rim: the single groove at 240° and the double groove at about 195°.
 - **Orientation:** the generic STEP is in the locked pose, in the OWL's frame: origin on the rotor axis, angles counterclockwise seen from above. A holder drawn on it sits the same way round on the OWL.
-- **Printing:** the adapter prints mount face up without supports, so keep overhangs ≤ 45° and bridges ≤ 10 mm. The clearances are validated in PLA on a Bambu X1C (0.4 mm nozzle, 0.2 mm layers). In PETG, add about 0.05 mm to the clearances and use 0.15 mm elephant-foot compensation.
+- **Printing:** the adapter prints mount face up without supports, so keep overhangs ≤ 45° and bridges ≤ 10 mm. The lug fit and the detent are print-tested in PLA on a Bambu X1C (0.4 mm nozzle, 0.2 mm layers); the current spring-arm layout isn't yet. In PETG, add about 0.05 mm to the clearances and use 0.15 mm elephant-foot compensation.
 - **Load:** the three lugs carry pull-off and moment loads; the detent only stops the adapter from turning. Keep the payload's centre of mass within about 30 mm of the axis. PLA creeps under heat and constant load, so use PETG for warm or outdoor use.
 
-The adapters in `adapters/` and the tripod mount are built by [`src/build.py`](src/build.py), which fuses the holders in `src/holders/` onto the generic adapter. To rebuild all of them, run from the repository root:
+The adapters in `adapters/` and the tripod mount are built by [`src/build.py`](src/build.py), from the holders in `src/holders/` and its own code for the 1/4" thread adapter and the tripod mount. To rebuild all of them, run from the repository root:
 
 ```sh
 uv run payload/src/build.py
