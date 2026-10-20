@@ -1,0 +1,102 @@
+# /// script
+# requires-python = ">=3.10,<3.14"
+# dependencies = ["cadquery>=2.4"]
+# ///
+"""
+build.py: payload adapters and tripod mount on connector 4, CadQuery 2.4+
+
+  generic/                 the blank adapter(), to build your own adapter on
+  adapters/<name>/         adapter() with holders/<name>.step fused onto its mount face
+  adapters/quarter-inch-thread/   adapter() with a boss for a 1/4"-20 heat insert
+  mounts/tripod/           base() and a body with a 1/4"-20 heat insert, screwed together like on the OWL
+
+Run `uv run payload/src/build.py` from the repository root. Every STEP is written in print orientation, on z = 0.
+Holder STEPs are in the adapter's device frame (locked pose) with the mount face at z = 0.
+"""
+from pathlib import Path
+
+import cadquery as cq
+
+import connector_4 as c4
+
+SRC = Path(__file__).resolve().parent
+PAYLOAD = SRC.parent
+
+# ---------------- 1/4"-20 heat insert (same as the OWL's tripod adapter) ----------------
+INSERT_D = 8.0
+INSERT_DEPTH = 12.5
+CHAMFER = 0.5
+
+# ---------------- quarter-inch-thread boss ----------------
+BOSS_D = 18.0
+BOSS_H = 13.0
+BOSS_FOOT_D, BOSS_FOOT_H = 24.0, 3.0   # 45° foot, stiffens the joint to the mount face
+
+# ---------------- tripod mount body ----------------
+BODY_H = 14.0
+PILOT_D, PILOT_DEPTH = 1.3, 7.5        # M1.6×8 screws cut their own thread
+RELIEF_DEPTH, RELIEF_MARGIN = 0.4, 0.3   # keeps the spring arms off the body
+BASE_GAP = 45.0                        # base next to the body on the print bed
+
+HOLDERS = ("nrf52840dk", "nrf54l15dk", "dwm3001cdk", "mocap", "zip-tie-ring")
+
+
+def single_solid(shape: cq.Shape, name: str) -> cq.Shape:
+    solids = shape.Solids()
+    if len(solids) != 1:
+        raise ValueError(f"{name}: {len(solids)} solids, expected one")
+    return solids[0]
+
+
+def export(shapes: list[cq.Shape], path: Path) -> None:
+    cq.exporters.export(cq.Workplane("XY").add(shapes), str(path))
+    print("wrote", path.relative_to(PAYLOAD.parent))
+
+
+def on_adapter(mount: cq.Shape) -> cq.Shape:
+    return c4.adapter().val().fuse(mount.translate(cq.Vector(0, 0, c4.ADAPTER_T))).clean()
+
+
+def holder_adapter(name: str) -> cq.Shape:
+    mount = cq.importers.importStep(str(SRC / "holders" / f"{name}.step")).val()
+    return single_solid(on_adapter(mount), name)
+
+
+def quarter_inch_adapter() -> cq.Shape:
+    boss = (cq.Workplane("XY")
+            .circle(BOSS_FOOT_D / 2).workplane(offset=BOSS_FOOT_H).circle(BOSS_D / 2).loft()
+            .union(cq.Workplane("XY").circle(BOSS_D / 2).extrude(BOSS_H))
+            .faces(">Z").edges().chamfer(CHAMFER)
+            .faces(">Z").workplane().hole(INSERT_D, INSERT_DEPTH)
+            .faces(">Z").edges(cq.selectors.RadiusNthSelector(0)).chamfer(CHAMFER))
+    return single_solid(on_adapter(boss.val()), "quarter-inch-thread")
+
+
+def tripod_body() -> cq.Shape:
+    """Built in connector_4's construction frame and mirrored like its parts, so screws and arms line up."""
+    body = (cq.Workplane("XY").circle(c4.DISC_R).extrude(BODY_H)
+            .faces("<Z").edges().chamfer(CHAMFER)
+            .faces("<Z").workplane().hole(INSERT_D, INSERT_DEPTH)
+            .faces("<Z").edges(cq.selectors.RadiusNthSelector(0)).chamfer(CHAMFER)
+            .val())
+    for a in c4.SCREWS:
+        x, y = c4.P(c4.SCREW_R, a)
+        body = body.cut(c4.cyl(PILOT_D / 2, x, y, BODY_H - PILOT_DEPTH, BODY_H + c4.E))
+    for tip, direction in c4.ARMS:
+        relief = c4.sector(c4.ARM_SLOT_IN - RELIEF_MARGIN, c4.ARM_SLOT_OUT + RELIEF_MARGIN,
+                           tip - 3 * direction, tip + direction * c4.SPAN)
+        body = body.cut(c4.prism(relief, BODY_H - RELIEF_DEPTH, BODY_H + c4.E))
+    return single_solid(body.mirror("YZ").clean(), "tripod body")
+
+
+def main() -> None:
+    export([c4.adapter().val()], PAYLOAD / "generic" / "payload-generic.step")
+    for name in HOLDERS:
+        export([holder_adapter(name)], PAYLOAD / "adapters" / name / f"{name}.step")
+    export([quarter_inch_adapter()], PAYLOAD / "adapters" / "quarter-inch-thread" / "quarter-inch-thread.step")
+    base = c4.base().val().translate(cq.Vector(BASE_GAP, 0, 0))
+    export([tripod_body(), base], PAYLOAD / "mounts" / "tripod" / "tripod.step")
+
+
+if __name__ == "__main__":
+    main()
