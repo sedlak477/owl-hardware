@@ -32,9 +32,13 @@ BOSS_D = 18.0
 BOSS_H = 13.0
 BOSS_FOOT_D, BOSS_FOOT_H = 24.0, 3.0   # 45° foot, stiffens the joint to the mount face
 
-# ---------------- tripod mount body ----------------
+# ---------------- tripod mount body (cone as in the old mount, printed upside down) ----------------
 BODY_H = 14.0
-PILOT_D, PILOT_DEPTH = 1.3, 7.5        # M1.6×8 screws cut their own thread
+FOOT_R = 7.7                           # 3.7 mm wall around the insert
+CONE_TOP_Z, CONE_TOP_R = 9.0, 12.9     # 30° from vertical
+FLANGE_Z = 10.5                        # full base radius from here up
+GRIP_R, GRIP_SPAN, GRIP_Z0, GRIP_Z1, GRIP_FILLET = 8.4, 60.0, 1.3, 8.6, 2.0   # flats between the screws
+PILOT_D, PILOT_DEPTH = 1.3, 5.5        # M1.6×6 screws cut their own thread
 RELIEF_DEPTH, RELIEF_MARGIN = 0.4, 0.3   # keeps the spring arms off the body
 BASE_GAP = 45.0                        # base next to the body on the print bed
 
@@ -73,8 +77,9 @@ def quarter_inch_adapter() -> cq.Shape:
 
 
 def tripod_body() -> cq.Shape:
-    """Built in connector_4's construction frame and mirrored like its parts, so screws and arms line up."""
-    body = (cq.Workplane("XY").circle(c4.DISC_R).extrude(BODY_H)
+    """Upright, in connector_4's construction frame and mirrored like its parts, so screws and arms line up."""
+    profile = [(0, 0), (FOOT_R, 0), (CONE_TOP_R, CONE_TOP_Z), (c4.DISC_R, FLANGE_Z), (c4.DISC_R, BODY_H), (0, BODY_H)]
+    body = (cq.Workplane("XZ").polyline(profile).close().revolve(360, (0, 0, 0), (0, 1, 0))
             .faces("<Z").edges().chamfer(CHAMFER)
             .faces("<Z").workplane().hole(INSERT_D, INSERT_DEPTH)
             .faces("<Z").edges(cq.selectors.RadiusNthSelector(0)).chamfer(CHAMFER)
@@ -82,6 +87,9 @@ def tripod_body() -> cq.Shape:
     for a in c4.SCREWS:
         x, y = c4.P(c4.SCREW_R, a)
         body = body.cut(c4.cyl(PILOT_D / 2, x, y, BODY_H - PILOT_DEPTH, BODY_H + c4.E))
+        grip = c4.sector(GRIP_R, c4.DISC_R + 5, a + 60 - GRIP_SPAN / 2, a + 60 + GRIP_SPAN / 2)
+        grip = grip.offset2D(-GRIP_FILLET, "arc")[0].offset2D(GRIP_FILLET, "arc")[0]
+        body = body.cut(c4.prism(grip, GRIP_Z0, GRIP_Z1))
     for tip, direction in c4.ARMS:
         relief = c4.sector(c4.ARM_SLOT_IN - RELIEF_MARGIN, c4.ARM_SLOT_OUT + RELIEF_MARGIN,
                            tip - 3 * direction, tip + direction * c4.SPAN)
@@ -94,8 +102,9 @@ def main() -> None:
     for name in HOLDERS:
         export([holder_adapter(name)], PAYLOAD / "adapters" / name / f"{name}.step")
     export([quarter_inch_adapter()], PAYLOAD / "adapters" / "quarter-inch-thread" / "quarter-inch-thread.step")
+    body = tripod_body().rotate(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), 180).translate(cq.Vector(0, 0, BODY_H))
     base = c4.base().val().translate(cq.Vector(BASE_GAP, 0, 0))
-    export([tripod_body(), base], PAYLOAD / "mounts" / "tripod" / "tripod.step")
+    export([body, base], PAYLOAD / "mounts" / "tripod" / "tripod.step")
 
 
 if __name__ == "__main__":
