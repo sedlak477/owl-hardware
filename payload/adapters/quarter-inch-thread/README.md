@@ -5,7 +5,7 @@ Anything made for a camera tripod screw can be mounted on it.
 
 To mount a payload that itself has a 1/4" tripod hole, screw a 1/4"-20 male-to-male stud (sold as a "1/4" to 1/4" screw adapter") into this adapter.
 
-It uses the same 1/4" heat insert as the OWL's tripod adapter (see the [assembly instructions](../../../docs/Assembly%20instructions.md)).
+Press the 1/4" heat insert into the boss from the top. It is the same insert as in the OWL's tripod adapter (see the [assembly instructions](../../../docs/Assembly%20instructions.md)).
 
 <img src="quarter-inch-thread.png" alt="1/4 inch thread adapter" width="300">
 

@@ -1,21 +1,25 @@
 # Payloads
 
 A payload is the device you rotate with the OWL, such as a development board or a set of motion-capture markers.
-It sits on an adapter, which locks into the payload connector on top of the OWL (`Rotor - Payload Connector` in [`cad/`](../cad/README.md)).
+It sits on an adapter, which locks onto the connector base on top of the OWL.
 
-To attach an adapter, put its pegs through the holes in the payload connector and twist it to lock it in place.
-Twist it back to take it off.
+> [!IMPORTANT]
+> These adapters use connector 4: a base with three T-lugs and a spring detent.
+> The OWL parts in [`cad/`](../cad/README.md) still have the old payload connector with peg slots (`Rotor - Payload Connector`), which these adapters don't fit.
+> For an OWL with the old connector, use the adapters from [release v1.2.2](https://github.com/sedlak477/owl-hardware/tree/v1.2.2/payload).
 
-> [!CAUTION]
-> The pegs are fragile. Don't force the adapter when you twist it.
+To attach an adapter, put it on the base with its double groove over the base's single groove, so the lugs drop into the adapter's pockets.
+Then twist it clockwise (seen from above) by 45° until the detent clicks and the single grooves line up.
+To take it off, twist it back counterclockwise. The detent needs a firm twist to release.
 
 ## Folder structure
 
 | Path              | Content                                                                         |
 | :---------------- | :------------------------------------------------------------------------------ |
-| `generic/`        | The generic adapter: a blank plate with the pegs, to extend for your own payload. |
+| `generic/`        | The generic adapter: a blank adapter with a flat mount face, to extend for your own payload. |
 | `adapters/<name>/` | Ready-made adapters, each with a STEP model, an image and a README.             |
 | `mounts/<name>/`   | Mounts that provide a payload connector without an OWL.                         |
+| `src/`             | The connector source (`connector_4.py`), the build script and the holders it puts on the adapters. |
 
 ## Adapters
 
@@ -33,7 +37,7 @@ If you improve one, please contribute it back (see [Contributing](#contributing)
 
 ## Using adapters without an OWL
 
-The [tripod mount](mounts/tripod/README.md) screws onto a camera tripod and has the same payload connector as the OWL, so every adapter fits it.
+The [tripod mount](mounts/tripod/README.md) screws onto a camera tripod and has the same connector base as the OWL, so every adapter fits it.
 Use it for devices that stay fixed in your setup, such as anchors or reference nodes: they sit on the same adapters and at the same geometry as the rotating ones, and you can move a device between an OWL and a fixed position without taking it off its adapter.
 
 ## Electrical interface
@@ -63,8 +67,24 @@ GPIO0 and GPIO1 can also be configured as UART0 TX and RX, so the port can be us
 
 ## Designing your own adapter
 
-Start from the generic adapter and build your holder on top of the plate, leaving the pegs unchanged so it still locks into the payload connector.
-It is in the [Onshape document](https://cad.onshape.com/documents/fccfa08dfedefe67cfdb683e/w/4726c041ddb97f340fe57a69/e/d62cb220f0c6f90c2b79ed01) with the rest of the OWL, where you can copy it, and in [`generic/payload-generic.step`](generic/payload-generic.step) for any other CAD tool.
+The connector is defined in [`src/connector_4.py`](src/connector_4.py) (CadQuery 2.4+). Build on top of it and leave its geometry unchanged.
+Fuse your holder onto the mount face of the generic adapter, [`generic/payload-generic.step`](generic/payload-generic.step) in any CAD tool, or in CadQuery:
+
+```python
+adapter().union(holder.translate((0, 0, ADAPTER_T)))
+```
+
+- **Mount face:** the top face of the adapter, solid Ø39 at z = 4. The STEP is in print orientation, with the mating face on z = 0.
+- **Keep-out:** nothing below z = 4 within 18 mm of the axis (lug pockets and detent groove). Don't cover the alignment grooves on the rim: the single groove at 240° and the double groove at about 195°.
+- **Orientation:** the generic STEP is in the locked pose, in the OWL's frame: origin on the rotor axis, angles counterclockwise seen from above. A holder drawn on it sits the same way round on the OWL.
+- **Printing:** the adapter prints mount face up without supports, so keep overhangs ≤ 45° and bridges ≤ 10 mm. The clearances are validated in PLA on a Bambu X1C (0.4 mm nozzle, 0.2 mm layers). In PETG, add about 0.05 mm to the clearances and use 0.15 mm elephant-foot compensation.
+- **Load:** the three lugs carry pull-off and moment loads; the detent only stops the adapter from turning. Keep the payload's centre of mass within about 30 mm of the axis. PLA creeps under heat and constant load, so use PETG for warm or outdoor use.
+
+The adapters in `adapters/` and the tripod mount are built by [`src/build.py`](src/build.py), which fuses the holders in `src/holders/` onto the generic adapter. To rebuild all of them, run from the repository root:
+
+```sh
+uv run payload/src/build.py
+```
 
 ## Contributing
 
@@ -74,6 +94,8 @@ New adapters and mounts are welcome, and so are improvements to the existing one
 - `<name>.png`: an image of it
 - `README.md`: what it holds and any extra hardware needed (screws, inserts, glue)
 - optionally `<name>.3mf`, ready to slice
+
+If you build it with `build.py`, also add the holder as `src/holders/<name>.step` (mount face at z = 0, locked pose) and its name to `HOLDERS`.
 
 Then add it to the table above and open a pull request.
 Contributions are licensed under the same [CERN-OHL-P-2.0](../LICENSE) as the rest of the OWL hardware.
