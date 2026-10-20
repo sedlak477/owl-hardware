@@ -13,6 +13,7 @@ build.py: payload adapters and tripod mount on connector 4, CadQuery 2.4+
 Run `uv run payload/src/build.py` from the repository root. Every STEP is written in print orientation, on z = 0.
 Holder STEPs are in the adapter's device frame (locked pose) with the mount face at z = 0.
 """
+from math import radians, tan
 from pathlib import Path
 
 import cadquery as cq
@@ -35,8 +36,7 @@ BOSS_FOOT_D, BOSS_FOOT_H = 24.0, 3.0   # 45° foot, stiffens the joint to the mo
 # ---------------- tripod mount body (cone as in the old mount, printed upside down) ----------------
 BODY_H = 14.0
 FOOT_R = 7.7                           # 3.7 mm wall around the insert
-CONE_TOP_Z, CONE_TOP_R = 9.0, 12.9     # 30° from vertical
-FLANGE_Z = 10.5                        # full base radius from here up
+CONE_ANGLE = 30.0                      # from vertical; top radius ≈ 15.8, under most of the lugs
 GRIP_R, GRIP_SPAN, GRIP_Z0, GRIP_Z1, GRIP_FILLET = 8.4, 60.0, 1.3, 8.6, 2.0   # flats between the screws
 PILOT_D, PILOT_DEPTH = 1.3, 5.5        # M1.6×6 screws cut their own thread
 RELIEF_DEPTH, RELIEF_MARGIN = 0.4, 0.3   # keeps the spring arms off the body
@@ -78,7 +78,8 @@ def quarter_inch_adapter() -> cq.Shape:
 
 def tripod_body() -> cq.Shape:
     """Upright, in connector_4's construction frame and mirrored like its parts, so screws and arms line up."""
-    profile = [(0, 0), (FOOT_R, 0), (CONE_TOP_R, CONE_TOP_Z), (c4.DISC_R, FLANGE_Z), (c4.DISC_R, BODY_H), (0, BODY_H)]
+    top_r = FOOT_R + BODY_H * tan(radians(CONE_ANGLE))
+    profile = [(0, 0), (FOOT_R, 0), (top_r, BODY_H), (0, BODY_H)]
     body = (cq.Workplane("XZ").polyline(profile).close().revolve(360, (0, 0, 0), (0, 1, 0))
             .faces("<Z").edges().chamfer(CHAMFER)
             .faces("<Z").workplane().hole(INSERT_D, INSERT_DEPTH)
