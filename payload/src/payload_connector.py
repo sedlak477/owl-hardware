@@ -1,10 +1,10 @@
 """
-connector_4.py: Snap connector, round 4 (device-mounted base), CadQuery 2.4+
+payload_connector.py: payload connector, version 2 (T-lugs and spring detent), CadQuery 2.4+
 
   base()       grey part: T-lugs, opposed spring arms, 3 counterbored screw holes. Prints lugs up.
   adapter()    orange part: flat mount face on top, lug pockets + detent groove below. Prints mount face up.
-  tripod()     option 4a: three tubes tied together by bridged beams. Prints tubes on the bed.
-  standoff()   option 4b: one plain tube. Print 3 (plus spares), or use bought spacers Ø5 × H with bore ≥ 1.7.
+  tripod()     stand option A: three tubes tied together by bridged beams. Prints tubes on the bed.
+  standoff()   stand option B: one plain tube. Print 3 (plus spares), or use bought spacers Ø5 × H with bore ≥ 1.7.
 
 Device frame (the frame used by Rotor.step), used by assembled() and for all angles below:
   origin on the rotor axis, z = 0 at the sensor PCB top, angles CCW seen from above.
@@ -15,8 +15,7 @@ Stack (all from SCREW_L):  H = SCREW_L - (BASE_T - CB_DEPTH) - HOUSING_DEPTH - T
   M1.6×20 → H = 11.3: base underside 11.3, base top 14.3, adapter top 18.3.
   Keep H ≥ TALL_CONN_TOP + CABLE_CLEAR (9.3) so the 6-pin connector's cable can exit upward.
 
-Run `python connector_4.py` to write STEP + STL for every part. Not yet run, so check the printed stack report.
-Geometry matches the 4a/4b viewer (Snap Connector Concepts.html).
+Run `python payload_connector.py` to write STEP + STL for every part and print the stack report.
 """
 import cadquery as cq
 from math import cos, sin, tan, radians, pi, sqrt
@@ -54,7 +53,7 @@ LEDGE_H, ROOF_Z = 1.0, 2.2
 PK_A0, PK_LOCK, PK_A1 = 4.0, 49.0, 91.0
 LEAD_IN_DEG, LEAD_IN_MIN = 2.5, 0.4
 
-# ---------------- detent (round 4 layout: arms between the screws) ----------------
+# ---------------- detent (arms between the screws) ----------------
 LOCK_RAMP = 20.0         # deg, lock-in ramp
 REL = 45.0               # deg, release flank (40 softer … 50 firmer)
 ARMS = [(100.0, 1), (300.0, -1)]   # construction frame: (free-tip angle, direction toward root)
@@ -343,8 +342,8 @@ def report():
 
 if __name__ == "__main__":
     report()
-    parts = {"connector_4_base": base(), "connector_4_adapter": adapter(),
-             "connector_4a_tripod": tripod(), "connector_4b_standoff": standoff()}
+    parts = {"connector_base": base(), "connector_adapter": adapter(),
+             "connector_tripod": tripod(), "connector_standoff": standoff()}
     for name, p in parts.items():
         cq.exporters.export(p, f"{name}.step")
         cq.exporters.export(p, f"{name}.stl", tolerance=0.01, angularTolerance=0.1)

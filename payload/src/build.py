@@ -3,7 +3,7 @@
 # dependencies = ["cadquery>=2.4"]
 # ///
 """
-build.py: payload adapters and tripod mount on connector 4, CadQuery 2.4+
+build.py: payload adapters and tripod mount on the payload connector, CadQuery 2.4+
 
   generic/                 the blank adapter(), to build your own adapter on
   adapters/<name>/         adapter() with holders/<name>.step fused onto its mount face
@@ -18,7 +18,7 @@ from pathlib import Path
 
 import cadquery as cq
 
-import connector_4 as c4
+import payload_connector as connector
 
 SRC = Path(__file__).resolve().parent
 PAYLOAD = SRC.parent
@@ -58,7 +58,7 @@ def export(shapes: list[cq.Shape], path: Path) -> None:
 
 
 def on_adapter(mount: cq.Shape) -> cq.Shape:
-    return c4.adapter().val().fuse(mount.translate(cq.Vector(0, 0, c4.ADAPTER_T))).clean()
+    return connector.adapter().val().fuse(mount.translate(cq.Vector(0, 0, connector.ADAPTER_T))).clean()
 
 
 def holder_adapter(name: str) -> cq.Shape:
@@ -77,7 +77,7 @@ def quarter_inch_adapter() -> cq.Shape:
 
 
 def tripod_body() -> cq.Shape:
-    """Upright, in connector_4's construction frame and mirrored like its parts, so screws and arms line up."""
+    """Upright, in payload_connector's construction frame and mirrored like its parts, so screws and arms line up."""
     top_r = FOOT_R + BODY_H * tan(radians(CONE_ANGLE))
     profile = [(0, 0), (FOOT_R, 0), (top_r, BODY_H), (0, BODY_H)]
     body = (cq.Workplane("XZ").polyline(profile).close().revolve(360, (0, 0, 0), (0, 1, 0))
@@ -85,26 +85,26 @@ def tripod_body() -> cq.Shape:
             .faces("<Z").workplane().hole(INSERT_D, INSERT_DEPTH)
             .faces("<Z").edges(cq.selectors.RadiusNthSelector(0)).chamfer(CHAMFER)
             .val())
-    for a in c4.SCREWS:
-        x, y = c4.P(c4.SCREW_R, a)
-        body = body.cut(c4.cyl(PILOT_D / 2, x, y, BODY_H - PILOT_DEPTH, BODY_H + c4.E))
-        grip = c4.sector(GRIP_R, c4.DISC_R + 5, a + 60 - GRIP_SPAN / 2, a + 60 + GRIP_SPAN / 2)
+    for a in connector.SCREWS:
+        x, y = connector.P(connector.SCREW_R, a)
+        body = body.cut(connector.cyl(PILOT_D / 2, x, y, BODY_H - PILOT_DEPTH, BODY_H + connector.E))
+        grip = connector.sector(GRIP_R, connector.DISC_R + 5, a + 60 - GRIP_SPAN / 2, a + 60 + GRIP_SPAN / 2)
         grip = grip.offset2D(-GRIP_FILLET, "arc")[0].offset2D(GRIP_FILLET, "arc")[0]
-        body = body.cut(c4.prism(grip, GRIP_Z0, GRIP_Z1))
-    for tip, direction in c4.ARMS:
-        relief = c4.sector(c4.ARM_SLOT_IN - RELIEF_MARGIN, c4.ARM_SLOT_OUT + RELIEF_MARGIN,
-                           tip - 3 * direction, tip + direction * c4.SPAN)
-        body = body.cut(c4.prism(relief, BODY_H - RELIEF_DEPTH, BODY_H + c4.E))
+        body = body.cut(connector.prism(grip, GRIP_Z0, GRIP_Z1))
+    for tip, direction in connector.ARMS:
+        relief = connector.sector(connector.ARM_SLOT_IN - RELIEF_MARGIN, connector.ARM_SLOT_OUT + RELIEF_MARGIN,
+                           tip - 3 * direction, tip + direction * connector.SPAN)
+        body = body.cut(connector.prism(relief, BODY_H - RELIEF_DEPTH, BODY_H + connector.E))
     return single_solid(body.mirror("YZ").clean(), "tripod body")
 
 
 def main() -> None:
-    export([c4.adapter().val()], PAYLOAD / "generic" / "payload-generic.step")
+    export([connector.adapter().val()], PAYLOAD / "generic" / "payload-generic.step")
     for name in HOLDERS:
         export([holder_adapter(name)], PAYLOAD / "adapters" / name / f"{name}.step")
     export([quarter_inch_adapter()], PAYLOAD / "adapters" / "quarter-inch-thread" / "quarter-inch-thread.step")
     body = tripod_body().rotate(cq.Vector(0, 0, 0), cq.Vector(1, 0, 0), 180).translate(cq.Vector(0, 0, BODY_H))
-    base = c4.base().val().translate(cq.Vector(BASE_GAP, 0, 0))
+    base = connector.base().val().translate(cq.Vector(BASE_GAP, 0, 0))
     export([body, base], PAYLOAD / "mounts" / "tripod" / "tripod.step")
 
 

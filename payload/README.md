@@ -4,9 +4,9 @@ A payload is the device you rotate with the OWL, such as a development board or 
 It sits on an adapter, which locks onto the connector base on top of the OWL.
 
 > [!IMPORTANT]
-> These adapters use connector 4: a base with three T-lugs and a spring detent.
-> The OWL parts in [`cad/`](../cad/README.md) still have the old payload connector with peg slots (`Rotor - Payload Connector`), which these adapters don't fit.
-> For an OWL with the old connector, use the adapters from [release v1.2.2](https://github.com/sedlak477/owl-hardware/tree/v1.2.2/payload).
+> These adapters use version 2 of the payload connector: a base with three T-lugs and a spring detent. It is incompatible with version 1, which locks with pegs in slots.
+> The OWL parts in [`cad/`](../cad/README.md) still have the version 1 connector (`Rotor - Payload Connector`), which these adapters don't fit.
+> For an OWL with the version 1 connector, use the adapters from [release v1.2.2](https://github.com/sedlak477/owl-hardware/tree/v1.2.2/payload).
 
 To attach an adapter, put it on the base with its double groove over the base's single groove, so the lugs drop into the adapter's pockets.
 Then twist it clockwise (seen from above) by 45° until the detent clicks and the single grooves line up.
@@ -19,7 +19,7 @@ To take it off, twist it back counterclockwise. The detent needs a firm twist to
 | `generic/`        | The generic adapter: a blank adapter with a flat mount face, to extend for your own payload. |
 | `adapters/<name>/` | Ready-made adapters, each with a STEP model, an image and a README.             |
 | `mounts/<name>/`   | Mounts that provide a payload connector without an OWL.                         |
-| `src/`             | The connector source (`connector_4.py`), the build script and the holders it puts on the adapters. |
+| `src/`             | The connector source (`payload_connector.py`), the build script and the holders it puts on the adapters. |
 
 ## Adapters
 
@@ -67,7 +67,7 @@ GPIO0 and GPIO1 can also be configured as UART0 TX and RX, so the port can be us
 
 ## Designing your own adapter
 
-The connector is defined in [`src/connector_4.py`](src/connector_4.py) (CadQuery 2.4+). Build on top of it and leave its geometry unchanged.
+The connector is defined in [`src/payload_connector.py`](src/payload_connector.py) (CadQuery 2.4+). Build on top of it and leave its geometry unchanged.
 Fuse your holder onto the mount face of the generic adapter, [`generic/payload-generic.step`](generic/payload-generic.step) in any CAD tool, or in CadQuery:
 
 ```python
