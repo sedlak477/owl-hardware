@@ -1,4 +1,4 @@
-1. 3D-print all parts & cleanup from print (especially the payload connector mounting holes). Download `owl-<version>-3d-print.zip` from the [latest release](https://github.com/sedlak477/owl-hardware/releases/latest) and print `OWL.3mf`: it has all parts for one OWL laid out on one plate, ready to slice. Print it in a heat-resistant filament like ABS or ASA, because the motor gets warm and the motor adapter and the parts around it must not soften. If you want to arrange the parts yourself, or print only some of them in another material, use the STEP files in the same archive instead (see [`cad/`](../cad/README.md)).
+1. 3D-print all parts & cleanup from print (especially the screw holes in the connector base and stand). Download `owl-<version>-3d-print.zip` from the [latest release](https://github.com/sedlak477/owl-hardware/releases/latest) and print `OWL.3mf`: it has all parts for one OWL laid out on one plate, ready to slice. Print it in a heat-resistant filament like ABS or ASA, because the motor gets warm and the motor adapter and the parts around it must not soften. If you want to arrange the parts yourself, or print only some of them in another material, use the STEP files in the same archive instead (see [`cad/`](../cad/README.md)).
 2. Prepare materials
 	1. 1x BLDC motor: SparkFun [ROB-20441](https://www.sparkfun.com/three-phase-brushless-gimbal-stabilizer-motor.html) (Mouser 474-ROB-20441)
 	2. 1x slip ring, 6 wire, 2A: SparkFun [ROB-13064](https://www.sparkfun.com/slip-ring-6-wire-2a.html) (Mouser 474-ROB-13064)
@@ -6,13 +6,13 @@
 	4. 3x M5 nuts
 	5. 3x M5 counter-sunk screws, 40mm long
 	6. 3x M1.6x6 flat-head screws
-	7. 3x M1.6x10 flat-head screws
+	7. 3x M1.6x20 socket head screws (ISO 4762 / DIN 912). Not flat-head: the length is chosen so that 2.25mm of thread go into the motor, and a longer screw damages the motor (see step 7).
 	8. 1x 1/4'' heat insert, 8.7mm outer diameter, ~12.7mm long (a shorter one works too, it just must not be longer)
 	9. 1x Molex Pico-EZmate cable assembly, 6 circuits, 50mm: [36920-0600](https://www.molex.com/en-us/products/part-detail/369200600) (Mouser 538-36920-0600)
 	10. 2x JST PA 6-pin housing (PAP-06V-S) with 12x crimp contacts, for the slip ring
 	11. 2x USB-C cables. Take care with cheap cables: many are charge-only and have no data lines.
 	12. 1x USB-C power supply that can deliver the voltage the stator requests (see below)
-3. Tools: soldering iron (for the heat insert), crimping tool for JST PA contacts, wire strippers, side cutters, 2mm allen key, multimeter
+3. Tools: soldering iron (for the heat insert), crimping tool for JST PA contacts, wire strippers, side cutters, 2mm allen key, 1.5mm allen key, multimeter
 4. Break the PCBs out of their panels, if they came panelized: snap or cut off the panel rails and file the leftover breakaway tabs flush.
 5. Press the 1/4'' heat insert into the tripod adapter
 	1. Insert until 1mm still sticks out
@@ -61,11 +61,8 @@
 19. Plug in the slip ring connector and the motor connector.
 20. !!!!! Make sure the slip ring cables are bent to the side and lay flat against the PCB, so the sensor can later be mounted on top.
 21. Plug the Pico-EZmate cable into the sensor PCB. Lay the sensor flat on the table, align the connector from the top and just press down, the connector should click into place very easily.
-22. Thread the M1.6x10 screws through the payload connector, slide on the sensor PCB (the sensor IC facing *away* from the payload connector), and slide on the board spacers. The fit on the spacers is tight, so I recommend screwing into them and letting 2mm stick out for alignment.
-
-	<img src="assembly/22-payload-connector-side.jpg" alt="Payload connector with the sensor PCB and board spacers, side view" width="400"> <img src="assembly/22-payload-connector-top.jpg" alt="Payload connector with the sensor PCB and board spacers, top view" width="400">
-
-23. Align the controller PCB with the motor's mounting holes, add the payload connector + sensor assembly on top, and screw the three M1.6 screws down into the motor.
+22. Thread the M1.6x20 screws through the connector base from the lug side, so the heads sit in the counterbores. Slide on the stand, flat beams first (the beams go against the base), then the sensor PCB (the sensor IC facing *away* from the base), and then the board spacers. The fit on the spacers is tight, so I recommend screwing into them and letting 2mm stick out for alignment.
+23. Align the controller PCB with the motor's mounting holes, add the connector + sensor assembly on top, and screw the three M1.6 screws down into the motor with the 1.5mm allen key. Stop as soon as the heads are seated: there is only about 0.6mm of thread left in the motor.
 24. Plug the other end of the Pico-EZmate cable into the controller PCB.
 
 ## Power supply

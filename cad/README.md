@@ -26,7 +26,8 @@ The same files are in [`3d-print/`](3d-print/):
 | `Stator - Big Spacer.step`         | Big spacers between stator PCB and tripod adapter.                  |
 | `Stator - Tripod Adapter.step`     | Tripod adapter with the 1/4'' heat insert.                          |
 | `Rotor - Board Spacers.step`       | Spacers between sensor PCB and controller PCB.                      |
-| `Rotor - Payload Connector.step`   | Payload connector on top of the rotor.                              |
+| `Rotor - Connector Stand.step`     | Stand between sensor PCB and connector base.                        |
+| `Rotor - Connector Base.step`      | Payload connector base on top of the rotor, version 2 (see [`payload/`](../payload/README.md)). |
 
 Each STEP file contains as many copies of the part as one OWL needs.
 

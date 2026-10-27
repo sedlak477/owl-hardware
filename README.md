@@ -20,7 +20,7 @@ so devices mounted on top can be rotated continuously while staying connected to
   and the USB hub (IC1) has no pin-1 marker.
 - **Releases after v1.0.0**, including the latest, should fix these issues, but no boards have been built from them yet, so they are **untested**.
   Other changes since the built boards: plated shell-tab holes for the controller's USB-C connector J3, a different part for the controller's `USER` LED D7, and no assembled parts on the controller's bottom side.
-- The payload adapters and the tripod mount in [`payload/`](payload/README.md) use version 2 of the payload connector, which is incompatible with version 1. Its lug fit and detent are print-tested, but the parts in this repository and the current spring-arm layout haven't been printed yet, so they are **untested**. The OWL parts in [`cad/`](cad/README.md) still have the version 1 connector.
+- The payload adapters and the tripod mount in [`payload/`](payload/README.md) use version 2 of the payload connector, which is incompatible with version 1. For an OWL with the version 1 connector, use [release v1.2.2](https://github.com/sedlak477/owl-hardware/tree/v1.2.2).
 - The 5V oscillation is only worked around: JP1 now ships open, so the controller runs from the power supply only (see [Power supply](docs/Assembly%20instructions.md#power-supply)). A proper fix is planned for the next board revision.
 
 ## Building an OWL
