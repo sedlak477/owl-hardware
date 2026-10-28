@@ -52,6 +52,7 @@ POCKET_IN, POCKET_OUT = 12.3, 17.7
 LEDGE_H, ROOF_Z = 1.0, 2.2
 PK_A0, PK_LOCK, PK_A1 = 4.0, 49.0, 91.0
 LEAD_IN_DEG, LEAD_IN_MIN = 2.5, 0.4
+UC_EMBED = 0.2
 
 # ---------------- detent (arms between the screws) ----------------
 LOCK_RAMP = 20.0         # deg, lock-in ramp
@@ -73,6 +74,7 @@ FLAG_HALF = 9.0
 MARK, TWIST = 300.0, 45.0          # construction frame (→ 240° device)
 GROOVE_HALF_DEG, GROOVE_DEPTH = 3.0, 1.0
 RIM_STEP = 0.5
+RIM_SEGS = 24
 
 E = 0.01
 
@@ -168,6 +170,7 @@ def _rot(shape, a):
 
 
 def rim_r(a, marks):
+    """Rim radius without the alignment grooves: grip lobes, flattened around each mark."""
     t = (a * GRIP_N / 360) % 1
     r = DISC_R + GRIP_H * 0.85 * sin(t * pi) ** 1.5
     for g in marks:
@@ -179,16 +182,32 @@ def rim_r(a, marks):
         u = min(1, max(0, (half + 4 - dc) / 4))
         w = u * u * (3 - 2 * u)
         r = r * (1 - w) + (DISC_R + GRIP_H) * w
-        d = min(abs(((a - m + 540) % 360) - 180) for m in g)
-        if d < GROOVE_HALF_DEG:
-            r = DISC_R + GRIP_H - GROOVE_DEPTH * sqrt(1 - (d / GROOVE_HALF_DEG) ** 2)
     return r
 
 
 def rim_wire(marks):
+    """Smooth rim as RIM_SEGS spline segments; a single periodic spline imports broken into Onshape."""
     n = int(round(360 / RIM_STEP))
-    pts = [V(rim_r(i * RIM_STEP, marks), i * RIM_STEP) for i in range(n)]
-    return cq.Wire.assembleEdges([cq.Edge.makeSpline(pts, periodic=True)])
+    per = n // RIM_SEGS
+    pt = lambda i: V(rim_r(i * RIM_STEP, marks), i * RIM_STEP)
+    tan = lambda i: (pt(i + 1) - pt(i - 1)).normalized()
+    edges = []
+    for k in range(RIM_SEGS):
+        idx = range(k * per, (k + 1) * per + 1)
+        edges.append(cq.Edge.makeSpline([pt(i) for i in idx], tangents=[tan(idx[0]), tan(idx[-1])], scale=True))
+    return cq.Wire.assembleEdges(edges)
+
+
+def rim_disc(marks, t):
+    """Disc with the grip rim, alignment grooves cut as elliptic cylinders (sharp edges stay exact)."""
+    d = prism(rim_wire(marks), 0, t)
+    r0 = DISC_R + GRIP_H
+    groove = prism(cq.Wire.makeEllipse(r0 * sin(radians(GROOVE_HALF_DEG)), GROOVE_DEPTH, cq.Vector(0, 0, 0),
+                                       cq.Vector(0, 0, 1), cq.Vector(0, 1, 0)), -1, t + 1).translate(cq.Vector(r0, 0, 0))
+    for g in marks:
+        for m in g:
+            d = d.cut(_rot(groove, m))
+    return d.clean()
 
 
 BASE_MARKS = [[MARK]]
@@ -197,7 +216,7 @@ ADAPTER_MARKS = [[MARK], [MARK + TWIST - 2.6, MARK + TWIST + 2.6]]
 
 # ---------------- construction-frame parts ----------------
 def _base():
-    b = prism(rim_wire(BASE_MARKS), 0, BASE_T)
+    b = rim_disc(BASE_MARKS, BASE_T)
     for f, s in ARMS:
         void = path_wire([('a', ARM_SLOT_OUT, f - 3 * s, f + s * SPAN), ('a', ARM_OUT, f + s * SPAN, f),
                           ('a', ARM_IN, f, f + s * SPAN), ('a', ARM_SLOT_IN, f + s * SPAN, f - 3 * s)])
@@ -247,7 +266,7 @@ def _groove_wire():
 
 
 def _adapter():
-    a = prism(rim_wire(ADAPTER_MARKS), 0, ADAPTER_T)
+    a = rim_disc(ADAPTER_MARKS, ADAPTER_T)
     a = a.cut(prism(_groove_wire(), -E, ROOF_Z))
     a = a.fuse(prism(circle_wire(ISLAND_R), 0, ROOF_Z + E))
     for k in range(LUG_COUNT):
@@ -256,15 +275,18 @@ def _adapter():
                          ('a', POCKET_IN, PK_A1 + o, PK_LOCK + o), ('a', SLOT_IN_R, PK_LOCK + o, PK_A0 + o)])
         a = a.cut(prism(key, -E, LEDGE_H))
         a = a.cut(prism(sector(POCKET_IN, POCKET_OUT, PK_A0 + o, PK_A1 + o), LEDGE_H - E, ROOF_Z))
-    inner = lambda q: [(POCKET_IN, LEDGE_H), (POCKET_IN + q, LEDGE_H), (POCKET_IN, LEDGE_H + q)]
-    outer = lambda q: [(POCKET_OUT - q, LEDGE_H), (POCKET_OUT, LEDGE_H), (POCKET_OUT, LEDGE_H + q)]
+    # undercut triangles, extended by UC_EMBED into the pocket wall so they don't share a face with it
+    inner = lambda q: [(POCKET_IN - UC_EMBED, LEDGE_H), (POCKET_IN + q, LEDGE_H),
+                       (POCKET_IN - UC_EMBED, LEDGE_H + q + UC_EMBED)]
+    outer = lambda q: [(POCKET_OUT - q, LEDGE_H), (POCKET_OUT + UC_EMBED, LEDGE_H),
+                       (POCKET_OUT + UC_EMBED, LEDGE_H + q + UC_EMBED)]
     lead = lambda ang: min(1, max(LEAD_IN_MIN, LEAD_IN_MIN + (1 - LEAD_IN_MIN) * (PK_LOCK - ang) / LEAD_IN_DEG))
     for prof in (inner, outer):
         uc = revolve(prof(1.0), PK_A0, PK_LOCK - LEAD_IN_DEG).fuse(
             loft_profiles(lambda ang: prof(lead(ang)), PK_LOCK - LEAD_IN_DEG, PK_LOCK))
         for k in range(LUG_COUNT):
             a = a.fuse(_rot(uc, k * 360 / LUG_COUNT))
-    return a.clean()
+    return a
 
 
 def _tube(a):
