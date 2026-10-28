@@ -62,6 +62,9 @@
 20. !!!!! Make sure the slip ring cables are bent to the side and lay flat against the PCB, so the sensor can later be mounted on top.
 21. Plug the Pico-EZmate cable into the sensor PCB. Lay the sensor flat on the table, align the connector from the top and just press down, the connector should click into place very easily.
 22. Thread the M1.6x20 screws through the connector base from the lug side, so the heads sit in the counterbores. Slide on the stand, flat beams first (the beams go against the base), then the sensor PCB (the sensor IC facing *away* from the base), and then the board spacers. The fit on the spacers is tight, so I recommend screwing into them and letting 2mm stick out for alignment.
+
+	<img src="assembly/22-payload-connector-side.jpg" alt="Payload connector with the sensor PCB and board spacers, side view" width="400"> <img src="assembly/22-payload-connector-top.jpg" alt="Payload connector with the sensor PCB and board spacers, top view" width="400">
+
 23. Align the controller PCB with the motor's mounting holes, add the connector + sensor assembly on top, and screw the three M1.6 screws down into the motor with the 1.5mm allen key. Stop as soon as the heads are seated: there is only about 0.6mm of thread left in the motor.
 24. Plug the other end of the Pico-EZmate cable into the controller PCB.
 
