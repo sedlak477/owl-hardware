@@ -42,7 +42,7 @@ PILOT_D, PILOT_DEPTH = 1.3, 5.5        # M1.6×6 screws cut their own thread
 RELIEF_DEPTH, RELIEF_MARGIN = 0.4, 0.3   # keeps the spring arms off the body
 BASE_GAP = 45.0                        # base next to the body on the print bed
 
-HOLDERS = ("nrf52840dk", "nrf54l15dk", "dwm3001cdk", "mocap", "zip-tie-ring")
+HOLDERS = ("nrf52840dk", "nrf54l15dk", "nrf7002dk", "dwm3001cdk", "mocap", "zip-tie-ring")
 
 
 def single_solid(shape: cq.Shape, name: str) -> cq.Shape:

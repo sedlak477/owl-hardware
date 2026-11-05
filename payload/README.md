@@ -26,6 +26,7 @@ To take it off, twist it back counterclockwise. The detent needs a firm twist to
 | :--------------------------------------------------------- | :--------------------------------------------------------------- |
 | [`nrf52840dk`](adapters/nrf52840dk/README.md)              | Nordic nRF52840 DK                                               |
 | [`nrf54l15dk`](adapters/nrf54l15dk/README.md)              | Nordic nRF54L15 DK                                               |
+| [`nrf7002dk`](adapters/nrf7002dk/README.md)                | Nordic nRF7002 DK                                                |
 | [`dwm3001cdk`](adapters/dwm3001cdk/README.md)              | Qorvo DWM3001CDK                                                 |
 | [`mocap`](adapters/mocap/README.md)                        | Five optical motion-capture markers                              |
 | [`quarter-inch-thread`](adapters/quarter-inch-thread/README.md) | Anything with a camera tripod screw (female 1/4"-20 thread) |
