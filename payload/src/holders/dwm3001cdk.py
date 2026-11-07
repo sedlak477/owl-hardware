@@ -43,7 +43,7 @@ BAR_H = 4.5                            # bottom bar, covers the bottom clip guss
 STRUT_W = 4.0
 FEET = (-9.0, 9.0)                     # x of the X-brace feet on the mount face
 TOP_Z = 43.5                           # where the X brace meets the stiles
-BUTTRESS_H, BUTTRESS_R = 8.0, 19.3     # 45° wedge behind the bottom bar, inside the mount face
+BUTTRESS_R = 19.3                      # 45° wedge behind the bottom bar, as high as the bar, inside the mount face
 MIN_SLOPE = 45.0
 E = 0.01
 
@@ -113,9 +113,9 @@ def holder() -> cq.Shape:
     parts += [strut(p, q) for p, q in braces]
     # wedge behind the bottom bar, sloped at 45° and kept on the mount face
     wedge = (cq.Workplane("YZ", origin=(-30, 0, 0))
-             .polyline([(y1 - E, 0), (y1 + BUTTRESS_H, 0), (y1 - E, BUTTRESS_H + E)]).close()
+             .polyline([(y1 - E, 0), (y1 + BAR_H, 0), (y1 - E, BAR_H)]).close()
              .extrude(60).val())
-    parts.append(wedge.intersect(cq.Solid.makeCylinder(BUTTRESS_R, BUTTRESS_H + 1)))
+    parts.append(wedge.intersect(cq.Solid.makeCylinder(BUTTRESS_R, BAR_H + 1)))
     parts += [clip("L", z) for z in SIDE_CLIPS_L] + [clip("R", z) for z in SIDE_CLIPS_R]
     parts += [clip("B", x) for x in BOTTOM_CLIPS]
 
